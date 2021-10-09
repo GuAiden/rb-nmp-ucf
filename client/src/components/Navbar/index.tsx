@@ -1,6 +1,10 @@
 import redbacklogo from '../../assets/redbacklogo.png';
-import './index.css';
+import './navbar.css';
 
+/**
+ * Basic navigation bar with simple logo
+ * @returns Functional Navbar component
+ */
 const Navbar: React.FunctionComponent = () => (
   <div className="container-fluid bg-dark">
     <nav className="navbar navbar-light bg-dark">

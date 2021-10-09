@@ -1,0 +1,6 @@
+.redbacklogowrapper {
+    margin-top: -8px; /* Negative values to remove the default navbar padding in bootstraps navbar class */  
+    margin-left: -12px;
+    margin-bottom: -8px;
+    height: 10%;
+}
