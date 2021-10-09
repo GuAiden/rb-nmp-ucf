@@ -14,7 +14,11 @@
     font-style: italic; 
 }
 
-.a:hover {
+.a-selected:hover {
+    color: white; 
+}
+
+.a-unselected:hover {
     font-weight: 750; 
     color: white; 
 }
