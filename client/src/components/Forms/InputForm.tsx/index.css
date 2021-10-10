@@ -6,3 +6,19 @@
     overflow: hidden; 
     cursor: pointer;
 }
+
+.input-modal {
+    background-color: grey;
+}
+
+.modal-header-wrapper {
+    font-size:22px;
+    font-style: italic;
+    color: white; 
+    font-weight: 600;
+}
+
+.modal-add-wrapper {
+    background-color: transparent; 
+    border-color: black; 
+}
