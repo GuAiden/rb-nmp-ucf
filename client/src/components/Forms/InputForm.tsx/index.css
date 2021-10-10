@@ -1,0 +1,8 @@
+.icon-wrapper {
+    background-color: transparent; 
+    background-repeat: no-repeat; 
+    border: none; 
+    outline: none; 
+    overflow: hidden; 
+    cursor: pointer;
+}
