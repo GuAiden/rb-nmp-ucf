@@ -8,6 +8,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -26,7 +27,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: client/package-lock.json
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+        cache-dependency-path: ./client
+    - name: Setup CI 
+      working-directory: ./client
+      run: npm ci 
+    - name: Run build 
+      working-directory: ./client
+      run: npm run build --if-present
+    - name: Run tests
+      working-directory: ./client
+      run: npm test
