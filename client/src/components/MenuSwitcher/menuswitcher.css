@@ -1,0 +1,34 @@
+
+
+.a-unselected {
+    text-decoration: none; 
+    color: white; 
+}
+
+.a-selected {
+    text-decoration: none; 
+    color: white; 
+    text-transform: uppercase; 
+    font-weight: 600; 
+    font-size: 20px;
+    font-style: italic; 
+}
+
+.a-selected:hover {
+    color: white; 
+}
+
+.a-unselected:hover {
+    font-weight: 750; 
+    color: white; 
+}
+
+.hr-wrapper {
+    border: solid 1px white;
+    background-color: white; 
+    color: white;
+}
+
+.col-wrapper {
+    margin-top: -2.5px; 
+}
