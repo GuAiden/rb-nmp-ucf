@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Form, FormControl, InputGroup, Modal } from 'react-bootstrap';
 import './index.css';
 
 /**
@@ -34,91 +34,83 @@ const CreateInputModal: React.FC = () => {
                 </header>
               </div>
               <div className="row">
-                <label htmlFor="channelNameInput" className="text-light mt-3">
-                  Channel Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control text-input-wrapper mt-1"
-                  id="channelInput"
-                />
-                <label htmlFor="channelNumberInput" className="mt-3 text-light">
-                  Channel Number
-                </label>
-                <input
-                  type="text"
-                  className="form-control text-input-wrapper mt-1"
-                  id="channelNumber"
-                />
+                <Form.Group
+                  className="mt-3 text-light"
+                  controlId="channelName.ControlInput"
+                >
+                  <Form.Label>Channel Name</Form.Label>
+                  <Form.Control type="text" className="text-input-wrapper" />
+                </Form.Group>
+                <Form.Group
+                  className="mt-3 text-light"
+                  controlId="channelNumber.ControlInput"
+                >
+                  <Form.Label>Channel Number</Form.Label>
+                  <Form.Control type="text" className="text-input-wrapper" />
+                </Form.Group>
               </div>
               {/* UNITS INPUTS WITH OUTPUT/CONVERSION CHECKBOXES */}
               <div className="row mt-4 justify-content-around">
-                <div className="col-1 my-auto">
-                  <span className="text-light">Units</span>
+                <div className="col-6 my-auto">
+                  <InputGroup className="input-group-sm mb-3">
+                    <InputGroup.Text className="input-group-text-wrapper">
+                      Units:
+                    </InputGroup.Text>
+                    <FormControl
+                      aria-label="Units input"
+                      aria-describedby="inputGroup-sizing-sm"
+                      className="text-input-wrapper"
+                    ></FormControl>
+                  </InputGroup>
                 </div>
-                <div className="col-lg-5">
-                  <input type="text" className="form-control ml-5" />
-                </div>
-                <div className="col-2 my-auto">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                    />
-                    <label
-                      className="form-check-label ml-2"
-                      htmlFor="flexCheckDefault"
-                    >
-                      Output?
-                    </label>
-                  </div>
-                </div>
-                <div className="col-3 my-auto">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexCheckDefault"
-                    >
-                      Conversion?
-                    </label>
-                  </div>
+                <div className="col-lg-5 my-auto">
+                  <>
+                    {['checkbox' as const].map((type) => (
+                      <div key={`inline-${type}`} className="mb-3">
+                        <Form.Check
+                          inline
+                          label="Output?"
+                          name="group1"
+                          type={type}
+                          id={`inline-${type}-1`}
+                        />
+                        <Form.Check
+                          inline
+                          label="Conversion?"
+                          name="group1"
+                          type={type}
+                          id={`inline-${type}-2`}
+                        />
+                      </div>
+                    ))}
+                  </>
                 </div>
               </div>
               {/* X AND Y INPUTS */}
-              <div className="row mt-4 justify-content-around">
+              <div className="row mt-4 justify-content-around mx-auto">
                 <div className="col-lg-5">
-                  <div className="input-group input-group-sm mb-3">
-                    <span className="input-group-text input-group-text-wrapper">
+                  <InputGroup className="input-group-sm mb-3">
+                    <InputGroup.Text className="input-group-text-wrapper">
                       X:
-                    </span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      aria-label="Sizing example input"
+                    </InputGroup.Text>
+                    <FormControl
+                      aria-label="X input value"
                       aria-describedby="inputGroup-sizing-sm"
-                    />
-                  </div>
+                      className="text-input-wrapper"
+                    ></FormControl>
+                  </InputGroup>
                 </div>
                 <div className="col-lg-5">
-                  <div className="input-group input-group-sm mb-3">
-                    <span className="input-group-text input-group-text-wrapper">
+                  <InputGroup className="input-group-sm mb-3">
+                    <InputGroup.Text className="input-group-text-wrapper">
                       Y:
-                    </span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      aria-label="Sizing example input"
+                    </InputGroup.Text>
+                    <FormControl
+                      aria-label="Y input value"
                       aria-describedby="inputGroup-sizing-sm"
-                    />
-                  </div>
+                      className="text-input-wrapper"
+                    ></FormControl>
+                  </InputGroup>
                 </div>
               </div>
               {/* ADD OR SAVE MODAL BUTTONS */}
