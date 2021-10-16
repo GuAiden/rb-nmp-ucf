@@ -121,6 +121,7 @@ const CreateInputModal: React.FC = () => {
                   </div>
                 </div>
               </div>
+              {/* ADD OR SAVE MODAL BUTTONS */}
               <div className="row justify-content-end">
                 <div className="col-2">
                   <Button
