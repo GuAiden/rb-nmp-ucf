@@ -1,0 +1,46 @@
+.icon-wrapper {
+    background-color: transparent; 
+    background-repeat: no-repeat; 
+    border: none; 
+    outline: none; 
+    overflow: hidden; 
+    cursor: pointer;
+}
+
+.input-modal {
+    background-color: rgb(51, 51, 51);
+}
+
+.text-input-wrapper {
+    background-color: rgb(71, 71, 71);
+    border-color: rgb(71, 71, 71);
+    color: white; 
+}
+
+.text-input-wrapper:focus {
+    background-color: rgb(71, 71, 71);
+    border-color: rgb(71, 71, 71);
+    color: white;
+}
+
+.modal-header-wrapper {
+    font-size:22px;
+    font-style: italic;
+    color: white; 
+    font-weight: 600;
+}
+
+.modal-add-wrapper {
+    background-color: transparent; 
+    border-color: black; 
+}
+
+.form-check-label {
+    color: white; 
+}
+
+.input-group-text-wrapper {
+    background-color: rgb(51, 51, 51);
+    border: none;
+    color: white; 
+}
