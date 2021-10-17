@@ -14,7 +14,12 @@ const CreateInputModal = ({
   onAddInput,
 }: CreateInputModalProps): JSX.Element => {
   const [show, setShow] = useState(false);
-  const [input, setInput] = useState<Input>(Object);
+  const [input, setInput] = useState<Input>({
+    output: false,
+    conversion: false,
+  } as Input);
+  const [isConversion, setConversion] = useState<boolean>(false);
+  const [isOutput, setOutput] = useState<boolean>(false);
 
   const handleShow = (): void => {
     setShow(true);
@@ -22,11 +27,14 @@ const CreateInputModal = ({
 
   const handleClose = (): void => {
     setShow(false);
+    setConversion(false);
+    setOutput(false);
   };
 
   const handleAddInput = (): void => {
     onAddInput(input);
     handleClose();
+    console.log(input);
   };
 
   const onChannelNameChange = (
@@ -35,6 +43,32 @@ const CreateInputModal = ({
     >[0],
   ): void => {
     setInput({ ...input, channelName: e.currentTarget.value as string });
+  };
+
+  const onChannelNumberChange = (
+    e: Parameters<
+      NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
+    >[0],
+  ): void => {
+    setInput({ ...input, channelNumber: parseInt(e.currentTarget.value, 10) });
+  };
+
+  const onUnitsChange = (
+    e: Parameters<
+      NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
+    >[0],
+  ): void => {
+    setInput({ ...input, units: e.currentTarget.value as string });
+  };
+
+  const onOutputChange = (): void => {
+    setOutput(!isOutput);
+    setInput({ ...input, output: !isOutput });
+  };
+
+  const onConversionChange = (): void => {
+    setConversion(!isConversion);
+    setInput({ ...input, conversion: !isConversion });
   };
 
   return (
@@ -72,7 +106,11 @@ const CreateInputModal = ({
                   controlId="channelNumber.ControlInput"
                 >
                   <Form.Label>Channel Number</Form.Label>
-                  <Form.Control type="text" className="text-input-wrapper" />
+                  <Form.Control
+                    type="text"
+                    className="text-input-wrapper"
+                    onChange={(e): void => onChannelNumberChange(e)}
+                  />
                 </Form.Group>
               </div>
               {/* UNITS INPUTS WITH OUTPUT/CONVERSION CHECKBOXES */}
@@ -86,6 +124,7 @@ const CreateInputModal = ({
                       aria-label="Units input"
                       aria-describedby="inputGroup-sizing-sm"
                       className="text-input-wrapper"
+                      onChange={(e): void => onUnitsChange(e)}
                     ></FormControl>
                   </InputGroup>
                 </div>
@@ -98,6 +137,8 @@ const CreateInputModal = ({
                           label="Output?"
                           name="group1"
                           type={type}
+                          checked={isOutput}
+                          onChange={(): void => onOutputChange()}
                           id={`inline-${type}-1`}
                         />
                         <Form.Check
@@ -105,6 +146,8 @@ const CreateInputModal = ({
                           label="Conversion?"
                           name="group1"
                           type={type}
+                          checked={isConversion}
+                          onChange={(): void => onConversionChange()}
                           id={`inline-${type}-2`}
                         />
                       </div>

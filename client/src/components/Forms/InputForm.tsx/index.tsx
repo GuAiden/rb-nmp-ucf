@@ -12,9 +12,10 @@ type InputFormProps = {
 const InputForm = ({ onInputChange }: InputFormProps): JSX.Element => {
   const [inputList, setInputList] = useState<Input[]>([] as Input[]);
 
-  function handleAddInput(userInput: Input): void {
+  const handleAddInput = (userInput: Input): void => {
     setInputList(inputList.concat(userInput));
-  }
+    onInputChange(inputList);
+  };
 
   return (
     <React.Fragment>
@@ -40,6 +41,13 @@ const InputForm = ({ onInputChange }: InputFormProps): JSX.Element => {
                 />
               </button>
             </div>
+          </div>
+          <div className="row">
+            {inputList.map((d, idx) => (
+              <li className="text-light" key={idx}>
+                {d.channelName}
+              </li>
+            ))}
           </div>
         </div>
       </div>

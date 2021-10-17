@@ -3,11 +3,12 @@ import { FirmwareState, Input } from './inputTypes';
 import InputForm from './InputForm.tsx';
 
 const Forms: React.FunctionComponent = () => {
-  const [state, setState] = useState<FirmwareState>(Object);
+  const [state, setState] = useState<FirmwareState>({} as FirmwareState);
 
-  function handleInputChange(userInputs: Input[]): void {
+  const handleInputChange = (userInputs: Input[]): void => {
     setState({ ...state, inputs: userInputs });
-  }
+    console.log(state.inputs);
+  };
 
   /**
    * Uncomment when components have been made, pass down as prop to relevant component
