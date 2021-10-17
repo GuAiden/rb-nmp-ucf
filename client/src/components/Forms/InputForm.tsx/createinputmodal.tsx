@@ -1,19 +1,41 @@
 import React, { useState } from 'react';
 import { Button, Form, FormControl, InputGroup, Modal } from 'react-bootstrap';
+import { Input } from '../inputTypes';
 import './index.css';
+
+type CreateInputModalProps = {
+  onAddInput: (userInputs: Input) => void;
+};
 
 /**
  * @returns A modal component that opens to handle form input for the 'inputs' page
  */
-const CreateInputModal: React.FC = () => {
+const CreateInputModal = ({
+  onAddInput,
+}: CreateInputModalProps): JSX.Element => {
   const [show, setShow] = useState(false);
+  const [input, setInput] = useState<Input>(Object);
 
-  function handleShow(): void {
+  const handleShow = (): void => {
     setShow(true);
-  }
-  function handleClose(): void {
+  };
+
+  const handleClose = (): void => {
     setShow(false);
-  }
+  };
+
+  const handleAddInput = (): void => {
+    onAddInput(input);
+    handleClose();
+  };
+
+  const onChannelNameChange = (
+    e: Parameters<
+      NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
+    >[0],
+  ): void => {
+    setInput({ ...input, channelName: e.currentTarget.value as string });
+  };
 
   return (
     <>
@@ -39,7 +61,11 @@ const CreateInputModal: React.FC = () => {
                   controlId="channelName.ControlInput"
                 >
                   <Form.Label>Channel Name</Form.Label>
-                  <Form.Control type="text" className="text-input-wrapper" />
+                  <Form.Control
+                    type="text"
+                    className="text-input-wrapper"
+                    onChange={(e): void => onChannelNameChange(e)}
+                  />
                 </Form.Group>
                 <Form.Group
                   className="mt-3 text-light"
@@ -119,7 +145,7 @@ const CreateInputModal: React.FC = () => {
                   <Button
                     variant="secondary"
                     size="lg"
-                    onClick={handleClose}
+                    onClick={(): void => handleAddInput()}
                     className="modal-add-wrapper"
                   >
                     Add
