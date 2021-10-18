@@ -33,5 +33,4 @@ it('should display a blank login form, with conversion and output checked by def
       ],
     }
   `);
-  wrapper.unmount();
 });
