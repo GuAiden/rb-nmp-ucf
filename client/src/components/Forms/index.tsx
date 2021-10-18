@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FirmwareState, Input } from './inputTypes';
-import InputForm from './InputForm.tsx';
+import InputForm from './InputForm';
 
 const Forms: React.FunctionComponent = () => {
   const [state, setState] = useState<FirmwareState>({} as FirmwareState);
