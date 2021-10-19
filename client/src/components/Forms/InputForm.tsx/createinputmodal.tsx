@@ -13,6 +13,12 @@ type CreateInputModalProps = {
 const CreateInputModal = ({
   onAddInput,
 }: CreateInputModalProps): JSX.Element => {
+  /**
+   * showState -> responsible for opening and closing modal
+   * inputState -> responsible for storing form inputs
+   * isConversionState -> responsible for handling conversion checkbox state
+   * isOutputState -> responsible for handling output checkbox state
+   */
   const [show, setShow] = useState(false);
   const [input, setInput] = useState<Input>({
     output: false,
@@ -21,6 +27,7 @@ const CreateInputModal = ({
   const [isConversion, setConversion] = useState<boolean>(false);
   const [isOutput, setOutput] = useState<boolean>(false);
 
+  // Modal open and close handlers
   const handleShow = (): void => {
     setShow(true);
   };
@@ -31,12 +38,14 @@ const CreateInputModal = ({
     setOutput(false);
   };
 
+  // CreateInputModal add button handler
   const handleAddInput = (): void => {
     onAddInput(input);
     handleClose();
     console.log(input);
   };
 
+  // onChange handlers for form inputs
   const onChannelNameChange = (
     e: Parameters<
       NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
