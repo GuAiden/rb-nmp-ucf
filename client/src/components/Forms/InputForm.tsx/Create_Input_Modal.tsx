@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, FormControl, InputGroup, Modal } from 'react-bootstrap';
-import { Input } from '../inputTypes';
+import { Input } from '../Input_Types';
 import './index.css';
 
 type CreateInputModalProps = {
@@ -10,9 +10,9 @@ type CreateInputModalProps = {
 /**
  * @returns A modal component that opens to handle form input for the 'inputs' page
  */
-const CreateInputModal = ({
+const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
   onAddInput,
-}: CreateInputModalProps): JSX.Element => {
+}: CreateInputModalProps) => {
   /**
    * showState -> responsible for opening and closing modal
    * inputState -> responsible for storing form inputs
@@ -81,7 +81,7 @@ const CreateInputModal = ({
   };
 
   return (
-    <>
+    <React.Fragment>
       <div className="float-left">
         <Button variant="primary" onClick={handleShow}>
           Create new
@@ -213,7 +213,7 @@ const CreateInputModal = ({
           </div>
         </Modal.Body>
       </Modal>
-    </>
+    </React.Fragment>
   );
 };
 

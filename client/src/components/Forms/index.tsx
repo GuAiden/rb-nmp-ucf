@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FirmwareState, Input } from './inputTypes';
+import { FirmwareState, Input } from './Input_Types';
 import InputForm from './InputForm.tsx';
 
 /**
