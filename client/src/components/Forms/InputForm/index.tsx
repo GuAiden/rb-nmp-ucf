@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import './index.css';
 import { Input } from '../Input_Types';
@@ -8,7 +8,8 @@ import gridviewicon from '../../../assets/gridviewicon.png';
 import stackedviewicon from '../../../assets/stackedviewicon.png';
 
 type InputFormProps = {
-  onInputChange: (userInputs: Input[]) => void;
+  onInputChange: (userInputs: Input) => void;
+  inputList: Input[];
 };
 
 /**
@@ -17,12 +18,10 @@ type InputFormProps = {
  */
 const InputForm: React.FunctionComponent<InputFormProps> = ({
   onInputChange,
+  inputList,
 }: InputFormProps) => {
-  const [inputList, setInputList] = useState<Input[]>([] as Input[]);
-
   const handleAddInput = (userInput: Input): void => {
-    setInputList(inputList.concat(userInput));
-    onInputChange(inputList);
+    onInputChange(userInput);
   };
 
   return (
