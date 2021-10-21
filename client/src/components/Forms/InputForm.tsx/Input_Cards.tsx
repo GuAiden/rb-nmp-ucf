@@ -34,6 +34,18 @@ const InputCards: React.FunctionComponent<InputCardsProps> = ({
                   <text className="input-text">{inputList[idx].units}</text>
                 </Col>
               </Row>
+              {inputList[idx].conversion && (
+                <Row className="pt-2">
+                  <Col>
+                    <text className="card-text">Conversion x:</text>
+                    <text className="input-text">{inputList[idx].x}</text>
+                  </Col>
+                  <Col>
+                    <text className="card-text">Conversion y:</text>
+                    <text className="input-text">{inputList[idx].y}</text>
+                  </Col>
+                </Row>
+              )}
             </Card.Body>
           </Card>
         </Col>
