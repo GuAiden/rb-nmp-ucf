@@ -17,8 +17,12 @@ const initialFirmwareState: FirmwareState = {
  */
 const Forms: React.FunctionComponent = () => {
   const [state, setState] = useState<FirmwareState>(initialFirmwareState);
-  const [form, setForm] = useState(1);
+  const [form, setForm] = useState('InputForm');
 
+  /**
+   * Handler to append input to list from create input modal
+   * @param userInputs created input
+   */
   const handleInputChange = (userInputs: Input): void => {
     setState({ ...state, inputs: state.inputs.concat(userInputs) });
   };
@@ -34,20 +38,24 @@ const Forms: React.FunctionComponent = () => {
   //   setState({ ...state, server: inputServer });
   // }
 
-  const handleFormChange = (num: number): void => {
-    setForm(num);
+  /**
+   * Changes the form to determine what component to show
+   * @param num provided component
+   */
+  const handleFormChange = (newForm: string): void => {
+    setForm(newForm);
     console.log(state);
   };
 
   return (
     <React.Fragment>
-      <MenuSwitcher onFormChange={handleFormChange} count={form} />
-      {form === 1 && (
+      <MenuSwitcher onFormChange={handleFormChange} form={form} />
+      {form === 'InputForm' && (
         <InputForm onInputChange={handleInputChange} inputList={state.inputs} />
       )}
-      {form === 2 && <OutputForm />}
-      {form === 3 && <ServerForm />}
-      {form === 4 && <SummaryForm />}
+      {form === 'OutputForm' && <OutputForm />}
+      {form === 'ServerForm' && <ServerForm />}
+      {form === 'SummaryForm' && <SummaryForm />}
     </React.Fragment>
   );
 };

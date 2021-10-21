@@ -2,8 +2,8 @@ import React from 'react';
 import './menuswitcher.css';
 
 type MenuSwitcherProps = {
-  onFormChange: (num: number) => void;
-  count: number;
+  onFormChange: (form: string) => void;
+  form: string;
 };
 
 /**
@@ -12,15 +12,15 @@ type MenuSwitcherProps = {
  */
 const MenuSwitcher: React.FunctionComponent<MenuSwitcherProps> = ({
   onFormChange,
-  count,
+  form,
 }: MenuSwitcherProps) => (
   <div className="container border border-primary mt-5 bg-primary">
     <div className="row">
       <div className="col-sm col-wrapper my-auto">
         <a
           href="#"
-          className={count === 1 ? 'a-selected' : 'a-unselected'}
-          onClick={(): void => onFormChange(1)}
+          className={form === 'InputForm' ? 'a-selected' : 'a-unselected'}
+          onClick={(): void => onFormChange('InputForm')}
         >
           Inputs
         </a>
@@ -31,8 +31,8 @@ const MenuSwitcher: React.FunctionComponent<MenuSwitcherProps> = ({
       <div className="col-sm col-wrapper my-auto">
         <a
           href="#"
-          className={count === 2 ? 'a-selected' : 'a-unselected'}
-          onClick={(): void => onFormChange(2)}
+          className={form === 'OutputForm' ? 'a-selected' : 'a-unselected'}
+          onClick={(): void => onFormChange('OutputForm')}
         >
           Outputs
         </a>
@@ -43,8 +43,8 @@ const MenuSwitcher: React.FunctionComponent<MenuSwitcherProps> = ({
       <div className="col-sm col-wrapper my-auto">
         <a
           href="#"
-          className={count === 3 ? 'a-selected' : 'a-unselected'}
-          onClick={(): void => onFormChange(3)}
+          className={form === 'ServerForm' ? 'a-selected' : 'a-unselected'}
+          onClick={(): void => onFormChange('ServerForm')}
         >
           Server
         </a>
@@ -55,8 +55,8 @@ const MenuSwitcher: React.FunctionComponent<MenuSwitcherProps> = ({
       <div className="col-sm col-wrapper my-auto">
         <a
           href="#"
-          className={count === 4 ? 'a-selected' : 'a-unselected'}
-          onClick={(): void => onFormChange(4)}
+          className={form === 'SummaryForm' ? 'a-selected' : 'a-unselected'}
+          onClick={(): void => onFormChange('SummaryForm')}
         >
           Summary
         </a>
