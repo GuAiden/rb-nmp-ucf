@@ -1,6 +1,6 @@
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import CreateInputModal from '../components/Forms/InputForm/createinputmodal';
+import CreateInputModal from '../components/Forms/InputForm/Create_Input_Modal';
 
 Enzyme.configure({ adapter: new Adapter() });
 
