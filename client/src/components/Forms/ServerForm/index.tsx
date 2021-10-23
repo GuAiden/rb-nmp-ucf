@@ -49,6 +49,7 @@ const ServerForm: React.FunctionComponent<ServerFormProps> = ({
             <Form.Label className="form-label-text">Address</Form.Label>
             <Form.Control
               type="text"
+              value={server.address}
               className="text-input-wrapper"
               onChange={(e): void => handleAddressChange(e)}
             />
@@ -60,7 +61,8 @@ const ServerForm: React.FunctionComponent<ServerFormProps> = ({
           <Form.Group className="mt-3 text-light" controlId="server.UDPPort">
             <Form.Label className="form-label-text">UDP Port</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
+              value={server.port}
               className="text-input-wrapper"
               onChange={(e): void => handleUDPChange(e)}
             />
@@ -71,7 +73,8 @@ const ServerForm: React.FunctionComponent<ServerFormProps> = ({
           <Form.Group className="mt-3 text-light" controlId="server.WSPort">
             <Form.Label className="form-label-text">WS Port</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
+              value={server.wsPort}
               className="text-input-wrapper mb-5"
               onChange={(e): void => handleWSChange(e)}
             />
