@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import CreateInputModal from './createinputmodal';
 import gridviewicon from '../../../assets/gridviewicon.png';
 import stackedviewicon from '../../../assets/stackedviewicon.png';
 import './index.css';
+import { Input } from '../inputTypes';
 
-const InputForm: React.FunctionComponent = () => {
-  const [state, setState] = useState(0);
+type InputFormProps = {
+  onInputChange: (userInputs: Input[]) => void;
+};
+
+/**
+ * @param onInputChange prop function to handle changes to the top-level state in Forms component
+ * @returns Functional component for an input form page with a modal to add inputs
+ */
+const InputForm = ({ onInputChange }: InputFormProps): JSX.Element => {
+  const [inputList, setInputList] = useState<Input[]>([] as Input[]);
+
+  const handleAddInput = (userInput: Input): void => {
+    setInputList(inputList.concat(userInput));
+    onInputChange(inputList);
+  };
 
   return (
     <React.Fragment>
@@ -14,7 +27,7 @@ const InputForm: React.FunctionComponent = () => {
         <div className="container bg-dark pt-4">
           <div className="row justify-content-between">
             <div className="col-4 my-auto">
-              <CreateInputModal />
+              <CreateInputModal onAddInput={handleAddInput} />
             </div>
             <div className="col-4 my-auto">
               <button className="icon-wrapper">
@@ -33,9 +46,14 @@ const InputForm: React.FunctionComponent = () => {
               </button>
             </div>
           </div>
+          <div className="row">
+            {inputList.map((d, idx) => (
+              <li className="text-light" key={idx}>
+                {d.channelName}
+              </li>
+            ))}
+          </div>
         </div>
-        <p>Hello world {state}</p>
-        <Button onClick={(): void => setState(1)} />
       </div>
     </React.Fragment>
   );

@@ -1,19 +1,84 @@
 import React, { useState } from 'react';
 import { Button, Form, FormControl, InputGroup, Modal } from 'react-bootstrap';
+import { Input } from '../inputTypes';
 import './index.css';
+
+type CreateInputModalProps = {
+  onAddInput: (userInputs: Input) => void;
+};
 
 /**
  * @returns A modal component that opens to handle form input for the 'inputs' page
  */
-const CreateInputModal: React.FC = () => {
+const CreateInputModal = ({
+  onAddInput,
+}: CreateInputModalProps): JSX.Element => {
+  /**
+   * showState -> responsible for opening and closing modal
+   * inputState -> responsible for storing form inputs
+   * isConversionState -> responsible for handling conversion checkbox state
+   * isOutputState -> responsible for handling output checkbox state
+   */
   const [show, setShow] = useState(false);
+  const [input, setInput] = useState<Input>({
+    output: false,
+    conversion: false,
+  } as Input);
+  const [isConversion, setConversion] = useState<boolean>(false);
+  const [isOutput, setOutput] = useState<boolean>(false);
 
-  function handleShow(): void {
+  // Modal open and close handlers
+  const handleShow = (): void => {
     setShow(true);
-  }
-  function handleClose(): void {
+  };
+
+  const handleClose = (): void => {
     setShow(false);
-  }
+    setConversion(false);
+    setOutput(false);
+  };
+
+  // CreateInputModal add button handler
+  const handleAddInput = (): void => {
+    onAddInput(input);
+    handleClose();
+    console.log(input);
+  };
+
+  // onChange handlers for form inputs
+  const onChannelNameChange = (
+    e: Parameters<
+      NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
+    >[0],
+  ): void => {
+    setInput({ ...input, channelName: e.currentTarget.value as string });
+  };
+
+  const onChannelNumberChange = (
+    e: Parameters<
+      NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
+    >[0],
+  ): void => {
+    setInput({ ...input, channelNumber: parseInt(e.currentTarget.value, 10) });
+  };
+
+  const onUnitsChange = (
+    e: Parameters<
+      NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
+    >[0],
+  ): void => {
+    setInput({ ...input, units: e.currentTarget.value as string });
+  };
+
+  const onOutputChange = (): void => {
+    setOutput(!isOutput);
+    setInput({ ...input, output: !isOutput });
+  };
+
+  const onConversionChange = (): void => {
+    setConversion(!isConversion);
+    setInput({ ...input, conversion: !isConversion });
+  };
 
   return (
     <>
@@ -39,14 +104,22 @@ const CreateInputModal: React.FC = () => {
                   controlId="channelName.ControlInput"
                 >
                   <Form.Label>Channel Name</Form.Label>
-                  <Form.Control type="text" className="text-input-wrapper" />
+                  <Form.Control
+                    type="text"
+                    className="text-input-wrapper"
+                    onChange={(e): void => onChannelNameChange(e)}
+                  />
                 </Form.Group>
                 <Form.Group
                   className="mt-3 text-light"
                   controlId="channelNumber.ControlInput"
                 >
                   <Form.Label>Channel Number</Form.Label>
-                  <Form.Control type="text" className="text-input-wrapper" />
+                  <Form.Control
+                    type="text"
+                    className="text-input-wrapper"
+                    onChange={(e): void => onChannelNumberChange(e)}
+                  />
                 </Form.Group>
               </div>
               {/* UNITS INPUTS WITH OUTPUT/CONVERSION CHECKBOXES */}
@@ -60,6 +133,7 @@ const CreateInputModal: React.FC = () => {
                       aria-label="Units input"
                       aria-describedby="inputGroup-sizing-sm"
                       className="text-input-wrapper"
+                      onChange={(e): void => onUnitsChange(e)}
                     ></FormControl>
                   </InputGroup>
                 </div>
@@ -72,6 +146,8 @@ const CreateInputModal: React.FC = () => {
                           label="Output?"
                           name="group1"
                           type={type}
+                          checked={isOutput}
+                          onChange={(): void => onOutputChange()}
                           id={`inline-${type}-1`}
                         />
                         <Form.Check
@@ -79,6 +155,8 @@ const CreateInputModal: React.FC = () => {
                           label="Conversion?"
                           name="group1"
                           type={type}
+                          checked={isConversion}
+                          onChange={(): void => onConversionChange()}
                           id={`inline-${type}-2`}
                         />
                       </div>
@@ -119,7 +197,7 @@ const CreateInputModal: React.FC = () => {
                   <Button
                     variant="secondary"
                     size="lg"
-                    onClick={handleClose}
+                    onClick={(): void => handleAddInput()}
                     className="modal-add-wrapper"
                   >
                     Add

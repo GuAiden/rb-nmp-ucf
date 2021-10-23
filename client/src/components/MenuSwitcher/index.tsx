@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './menuswitcher.css';
 /**
  * Basic anchor group to switch between components
- * @returns Functional component to switch between input/output menus
+ * @returns Functional component to switch between input/output/server menus
  */
 const MenuSwitcher: React.FunctionComponent = () => {
   const [count, setCount] = useState(1);
