@@ -199,6 +199,7 @@ const CreateInputModal = ({
                     size="lg"
                     onClick={(): void => handleAddInput()}
                     className="modal-add-wrapper"
+                    id="add-button"
                   >
                     Add
                   </Button>
