@@ -222,6 +222,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                     size="lg"
                     onClick={(): void => handleAddInput()}
                     className="modal-add-wrapper"
+                    id="add-button"
                   >
                     Add
                   </Button>

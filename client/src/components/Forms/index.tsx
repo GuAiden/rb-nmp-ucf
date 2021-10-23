@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FirmwareState, Input } from './Input_Types';
-import InputForm from './InputForm.tsx';
+import InputForm from './InputForm';
 
 /**
  * @returns Top level functional component for input, output and server form pages
