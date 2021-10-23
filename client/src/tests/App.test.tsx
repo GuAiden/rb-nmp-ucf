@@ -1,6 +1,11 @@
-import React from 'react';
+import ReactDOM from 'react-dom';
 import { render, screen } from '@testing-library/react';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import App from '../App';
+import Forms from '../components/Forms';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 test('renders navbar', () => {
   render(<App />);
@@ -18,4 +23,14 @@ test('renders menuswitcher component', () => {
   expect(linkElement2).toBeInTheDocument();
   expect(linkElement3).toBeInTheDocument();
   expect(linkElement4).toBeInTheDocument();
+});
+
+it('renders forms component correctly without props', () => {
+  const component = shallow(<Forms />);
+  expect(component).toMatchSnapshot();
+});
+
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App />, div);
 });
