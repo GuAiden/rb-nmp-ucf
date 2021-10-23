@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { Button, Form, FormControl, InputGroup, Modal } from 'react-bootstrap';
-import { Input } from '../inputTypes';
+import { Input } from '../Input_Types';
 import './index.css';
 
 type CreateInputModalProps = {
   onAddInput: (userInputs: Input) => void;
 };
 
+const initialState = {
+  output: false,
+  conversion: false,
+} as Input;
+
 /**
  * @returns A modal component that opens to handle form input for the 'inputs' page
  */
-const CreateInputModal = ({
+const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
   onAddInput,
-}: CreateInputModalProps): JSX.Element => {
+}: CreateInputModalProps) => {
   /**
    * showState -> responsible for opening and closing modal
    * inputState -> responsible for storing form inputs
@@ -20,10 +25,7 @@ const CreateInputModal = ({
    * isOutputState -> responsible for handling output checkbox state
    */
   const [show, setShow] = useState(false);
-  const [input, setInput] = useState<Input>({
-    output: false,
-    conversion: false,
-  } as Input);
+  const [input, setInput] = useState<Input>(initialState);
   const [isConversion, setConversion] = useState<boolean>(false);
   const [isOutput, setOutput] = useState<boolean>(false);
 
@@ -41,7 +43,10 @@ const CreateInputModal = ({
   // CreateInputModal add button handler
   const handleAddInput = (): void => {
     onAddInput(input);
-    handleClose();
+    setShow(false);
+    setOutput(false);
+    setConversion(false);
+    setInput(initialState);
     console.log(input);
   };
 
@@ -70,6 +75,22 @@ const CreateInputModal = ({
     setInput({ ...input, units: e.currentTarget.value as string });
   };
 
+  const onXChange = (
+    e: Parameters<
+      NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
+    >[0],
+  ): void => {
+    setInput({ ...input, x: parseInt(e.currentTarget.value, 10) });
+  };
+
+  const onYChange = (
+    e: Parameters<
+      NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
+    >[0],
+  ): void => {
+    setInput({ ...input, y: parseInt(e.currentTarget.value, 10) });
+  };
+
   const onOutputChange = (): void => {
     setOutput(!isOutput);
     setInput({ ...input, output: !isOutput });
@@ -81,7 +102,7 @@ const CreateInputModal = ({
   };
 
   return (
-    <>
+    <React.Fragment>
       <div className="float-left">
         <Button variant="primary" onClick={handleShow}>
           Create new
@@ -175,6 +196,7 @@ const CreateInputModal = ({
                       aria-label="X input value"
                       aria-describedby="inputGroup-sizing-sm"
                       className="text-input-wrapper"
+                      onChange={(e): void => onXChange(e)}
                     ></FormControl>
                   </InputGroup>
                 </div>
@@ -187,6 +209,7 @@ const CreateInputModal = ({
                       aria-label="Y input value"
                       aria-describedby="inputGroup-sizing-sm"
                       className="text-input-wrapper"
+                      onChange={(e): void => onYChange(e)}
                     ></FormControl>
                   </InputGroup>
                 </div>
@@ -214,7 +237,7 @@ const CreateInputModal = ({
           </div>
         </Modal.Body>
       </Modal>
-    </>
+    </React.Fragment>
   );
 };
 

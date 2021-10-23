@@ -1,0 +1,17 @@
+.card-text {
+    color: white;
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    font-size:small;
+}
+
+.input-text {
+    color: white;
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    font-style: italic;
+    font-size: large;
+    font-weight: 400;
+}

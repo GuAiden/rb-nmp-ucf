@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import CreateInputModal from './createinputmodal';
+import React, { useState, Fragment } from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import './index.css';
+import { Input } from '../Input_Types';
+import InputCards from './Input_Cards';
+import CreateInputModal from './Create_Input_Modal';
 import gridviewicon from '../../../assets/gridviewicon.png';
 import stackedviewicon from '../../../assets/stackedviewicon.png';
-import './index.css';
-import { Input } from '../inputTypes';
 
 type InputFormProps = {
   onInputChange: (userInputs: Input[]) => void;
@@ -13,7 +15,9 @@ type InputFormProps = {
  * @param onInputChange prop function to handle changes to the top-level state in Forms component
  * @returns Functional component for an input form page with a modal to add inputs
  */
-const InputForm = ({ onInputChange }: InputFormProps): JSX.Element => {
+const InputForm: React.FunctionComponent<InputFormProps> = ({
+  onInputChange,
+}: InputFormProps) => {
   const [inputList, setInputList] = useState<Input[]>([] as Input[]);
 
   const handleAddInput = (userInput: Input): void => {
@@ -22,40 +26,34 @@ const InputForm = ({ onInputChange }: InputFormProps): JSX.Element => {
   };
 
   return (
-    <React.Fragment>
-      <div className="container bg-dark">
-        <div className="container bg-dark pt-4">
-          <div className="row justify-content-between">
-            <div className="col-4 my-auto">
+    <Fragment>
+      <Container className="bg-dark">
+        <Container className="pt-4">
+          <Row className="justify-content-between">
+            <Col md={4} className="my-auto">
               <CreateInputModal onAddInput={handleAddInput} />
-            </div>
-            <div className="col-4 my-auto">
-              <button className="icon-wrapper">
+            </Col>
+            <Col md={4} className="my-auto">
+              <Button variant="outline-dark" className="icon-wrapper">
                 <img
                   src={gridviewicon}
                   alt="gridView"
                   onClick={(): void => console.log('GridView pressed')}
                 />
-              </button>
-              <button className="icon-wrapper">
+              </Button>
+              <Button variant="outline-dark" className="icon-wrapper">
                 <img
                   src={stackedviewicon}
                   alt="stackedView"
                   onClick={(): void => console.log('StackedView pressed')}
                 />
-              </button>
-            </div>
-          </div>
-          <div className="row">
-            {inputList.map((d, idx) => (
-              <li className="text-light" key={idx}>
-                {d.channelName}
-              </li>
-            ))}
-          </div>
-        </div>
-      </div>
-    </React.Fragment>
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+        <InputCards inputList={inputList} />
+      </Container>
+    </Fragment>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FirmwareState, Input } from './inputTypes';
+import { FirmwareState, Input } from './Input_Types';
 import InputForm from './InputForm';
 
 /**
@@ -10,7 +10,6 @@ const Forms: React.FunctionComponent = () => {
 
   const handleInputChange = (userInputs: Input[]): void => {
     setState({ ...state, inputs: userInputs });
-    console.log(state.inputs);
   };
 
   /**
