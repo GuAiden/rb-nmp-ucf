@@ -1,0 +1,18 @@
+.text-input-wrapper {
+    background-color: rgb(71, 71, 71);
+    border-color: rgb(71, 71, 71);
+    color: white; 
+}
+
+.form-label-text {
+    color: white;
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    font-size:medium;
+}
+
+.server-header {
+    font-style: italic;
+    color: white;
+}

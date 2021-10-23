@@ -7,11 +7,6 @@ const App: React.FC = () => (
   <div className="App">
     <Navbar />
     <Forms />
-    <header className="App-header">
-      <p>
-        Hey <code>peeps</code>
-      </p>
-    </header>
   </div>
 );
 

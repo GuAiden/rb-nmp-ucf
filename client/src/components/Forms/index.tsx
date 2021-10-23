@@ -34,9 +34,9 @@ const Forms: React.FunctionComponent = () => {
   //   setState({ ...state, outputs: userOutputs });
   // }
 
-  // function handleServerChange(inputServer: ServerInput): void {
-  //   setState({ ...state, server: inputServer });
-  // }
+  function handleServerChange(inputServer: ServerInput): void {
+    setState({ ...state, server: inputServer });
+  }
 
   /**
    * Changes the form to determine what component to show
@@ -54,7 +54,9 @@ const Forms: React.FunctionComponent = () => {
         <InputForm onInputChange={handleInputChange} inputList={state.inputs} />
       )}
       {form === 'OutputForm' && <OutputForm />}
-      {form === 'ServerForm' && <ServerForm />}
+      {form === 'ServerForm' && (
+        <ServerForm onServerChange={handleServerChange} server={state.server} />
+      )}
       {form === 'SummaryForm' && <SummaryForm />}
     </React.Fragment>
   );
