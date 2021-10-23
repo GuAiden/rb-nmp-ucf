@@ -1,3 +1,6 @@
+/**
+ * Summary output JSON
+ */
 export interface FirmwareState {
   server: ServerInput;
   inputs: Input[];

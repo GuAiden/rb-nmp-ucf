@@ -9,6 +9,10 @@ type InputFormProps = {
   onInputChange: (userInputs: Input[]) => void;
 };
 
+/**
+ * @param onInputChange prop function to handle changes to the top-level state in Forms component
+ * @returns Functional component for an input form page with a modal to add inputs
+ */
 const InputForm = ({ onInputChange }: InputFormProps): JSX.Element => {
   const [inputList, setInputList] = useState<Input[]>([] as Input[]);
 
