@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FirmwareState, Input, Output, ServerInput } from './Input_Types';
 import InputForm from './InputForm';
 import OutputForm from './OutputForm';
