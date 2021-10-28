@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Input } from '../Input_Types';
 import EditInputModal from './Edit_Input_Modal';
 import './Input_Cards.css';
@@ -54,14 +54,19 @@ const InputCards: React.FunctionComponent<InputCardsProps> = ({
                     </Col>
                   </Row>
                 ) : (
-                  <Row className="py-3 mt-4"></Row>
+                  <Row className="py-3 mt-5"></Row>
                 )}
-                <Row className="justify-content-end">
-                  <Col md={{ offset: 6 }}>
+                <Row className="justify-content-end g-0 mt-2">
+                  <Col md={{ offset: 5 }}>
                     <EditInputModal />
                   </Col>
                   <Col>
-                    <EditInputModal />
+                    <Button
+                      className="rounded-0 button-clear border px-3 py-0"
+                      variant="danger"
+                    >
+                      <p className="my-auto card-button-text">Delete</p>
+                    </Button>
                   </Col>
                 </Row>
               </Card.Body>
