@@ -6,10 +6,12 @@ import './Input_Cards.css';
 
 type InputCardsProps = {
   inputList: Input[];
+  onInputDelete: (idx: number) => void;
 };
 
 const InputCards: React.FunctionComponent<InputCardsProps> = ({
   inputList,
+  onInputDelete,
 }: InputCardsProps) => (
   <Container className="px-5 py-4">
     {/*
@@ -62,8 +64,11 @@ const InputCards: React.FunctionComponent<InputCardsProps> = ({
                   </Col>
                   <Col>
                     <Button
-                      className="rounded-0 button-clear border px-3 py-0"
+                      className="rounded-0 button-clear border px-3 py-1"
                       variant="danger"
+                      onClick={(): void =>
+                        onInputDelete(inputList[idx].channelNumber)
+                      }
                     >
                       <p className="my-auto card-button-text">Delete</p>
                     </Button>

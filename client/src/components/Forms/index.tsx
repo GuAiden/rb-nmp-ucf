@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FirmwareState, Input, Output, ServerInput } from './Input_Types';
 import InputForm from './InputForm';
 import OutputForm from './OutputForm';
@@ -28,6 +28,21 @@ const Forms: React.FunctionComponent = () => {
   };
 
   /**
+   * Handler to delete an input from list
+   * We can use the channelNumber to delete from the list since it acts
+   * as a unique key for all inputs
+   * @param inputServer
+   */
+  const handleInputDeletion = (channelNumber: number): void => {
+    setState({
+      ...state,
+      inputs: state.inputs.filter(
+        (input) => input.channelNumber !== channelNumber,
+      ),
+    });
+  };
+
+  /**
    * Uncomment when components have been made, pass down as prop to relevant component
    */
   // function handleOutputChange(userOutputs: Output[]): void {
@@ -47,11 +62,19 @@ const Forms: React.FunctionComponent = () => {
     console.log(state);
   };
 
+  useEffect(() => {
+    console.log(state.inputs);
+  });
+
   return (
     <React.Fragment>
       <MenuSwitcher onFormChange={handleFormChange} form={form} />
       {form === 'InputForm' && (
-        <InputForm onInputChange={handleInputChange} inputList={state.inputs} />
+        <InputForm
+          onInputChange={handleInputChange}
+          onInputDelete={handleInputDeletion}
+          inputList={state.inputs}
+        />
       )}
       {form === 'OutputForm' && <OutputForm />}
       {form === 'ServerForm' && (

@@ -9,6 +9,7 @@ import stackedviewicon from '../../../assets/stackedviewicon.png';
 
 type InputFormProps = {
   onInputChange: (userInputs: Input) => void;
+  onInputDelete: (idx: number) => void;
   inputList: Input[];
 };
 
@@ -18,6 +19,7 @@ type InputFormProps = {
  */
 const InputForm: React.FunctionComponent<InputFormProps> = ({
   onInputChange,
+  onInputDelete,
   inputList,
 }: InputFormProps) => {
   const handleAddInput = (userInput: Input): void => {
@@ -50,7 +52,7 @@ const InputForm: React.FunctionComponent<InputFormProps> = ({
             </Col>
           </Row>
         </Container>
-        <InputCards inputList={inputList} />
+        <InputCards inputList={inputList} onInputDelete={onInputDelete} />
       </Container>
     </Fragment>
   );

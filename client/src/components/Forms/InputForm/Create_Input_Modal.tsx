@@ -219,21 +219,26 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                 </div>
               </div>
               {/* ADD OR SAVE MODAL BUTTONS */}
-              <div className="row justify-content-end">
-                <div className="col-2">
+              <div className="row justify-content-end mt-4">
+                <div className="col-3">
                   <Button
                     variant="secondary"
                     size="lg"
                     onClick={(): void => handleAddInput()}
-                    className="modal-add-wrapper"
+                    className="border rounded-0 modal-add-wrapper px-5"
                     id="add-button"
                   >
                     Add
                   </Button>
                 </div>
-                <div className="col-2">
-                  <Button variant="primary" size="lg" onClick={handleClose}>
-                    Save
+                <div className="col-3">
+                  <Button
+                    className="rounded-0 px-5"
+                    variant="primary"
+                    size="lg"
+                    onClick={handleClose}
+                  >
+                    Close
                   </Button>
                 </div>
               </div>

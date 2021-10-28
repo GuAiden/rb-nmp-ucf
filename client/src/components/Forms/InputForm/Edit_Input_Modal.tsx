@@ -16,7 +16,7 @@ const EditInputModal: React.FunctionComponent = () => {
   return (
     <React.Fragment>
       <Button
-        className="rounded-0 button-clear border px-4 py-0"
+        className="rounded-0 button-clear border px-4 py-1"
         onClick={handleShow}
       >
         <p className="my-auto card-button-text">Edit</p>
