@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Input } from '../Input_Types';
+import EditInputModal from './Edit_Input_Modal';
 import './Input_Cards.css';
 
 type InputCardsProps = {
@@ -16,11 +17,11 @@ const InputCards: React.FunctionComponent<InputCardsProps> = ({
     nesting containers
     */}
     <Container className="px-5">
-      <Row md={3} className="g-5 justify-content-center">
+      <Row md={3} className="g-5 justify-content-left">
         {inputList.map((_, idx) => (
           <Col>
-            <Card bg="secondary" className="card-wrapper">
-              <Card.Body>
+            <Card className="card-wrapper rounded-0">
+              <Card.Body className="card-body">
                 <Row>
                   <text className="card-text">Channel Name</text>
                 </Row>
@@ -41,7 +42,7 @@ const InputCards: React.FunctionComponent<InputCardsProps> = ({
                     <text className="input-text">{inputList[idx].units}</text>
                   </Col>
                 </Row>
-                {inputList[idx].conversion && (
+                {inputList[idx].conversion ? (
                   <Row className="pt-2">
                     <Col>
                       <text className="card-text">Conversion x:</text>
@@ -52,7 +53,17 @@ const InputCards: React.FunctionComponent<InputCardsProps> = ({
                       <text className="input-text">{inputList[idx].y}</text>
                     </Col>
                   </Row>
+                ) : (
+                  <Row className="py-3 mt-4"></Row>
                 )}
+                <Row className="justify-content-end">
+                  <Col md={{ offset: 6 }}>
+                    <EditInputModal />
+                  </Col>
+                  <Col>
+                    <EditInputModal />
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           </Col>

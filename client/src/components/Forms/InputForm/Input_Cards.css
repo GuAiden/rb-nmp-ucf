@@ -1,5 +1,5 @@
 .card-text {
-    color: white;
+    color: rgb(136, 136, 136);
     display: flex;
     justify-content: left;
     align-items: flex-start;
@@ -14,4 +14,14 @@
     font-style: italic;
     font-size: large;
     font-weight: 400;
+}
+
+.card-body {
+    padding-left: 8%;
+    background-color: rgb(65, 65, 65);
+    border: none;
+}
+
+.card-wrapper {
+    background-color: rgb(65, 65, 65);
 }
