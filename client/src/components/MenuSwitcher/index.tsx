@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import './menuswitcher.css';
 /**
  * Basic anchor group to switch between components
@@ -7,9 +8,12 @@ import './menuswitcher.css';
 const MenuSwitcher: React.FunctionComponent = () => {
   const [count, setCount] = useState(1);
   return (
-    <div className="container border border-primary mt-5 bg-primary">
-      <div className="row">
-        <div className="col-sm col-wrapper my-auto">
+    <Container className="container-blue border border-primary mt-5">
+      <Row className="justify-content-md-center mt-4 mb-4">
+        <Col md="2">
+          <p> </p>
+        </Col>
+        <Col md="auto" className="col-wrapper my-auto">
           <a
             href="#"
             className={count === 1 ? 'a-selected' : 'a-unselected'}
@@ -17,11 +21,11 @@ const MenuSwitcher: React.FunctionComponent = () => {
           >
             Inputs
           </a>
-        </div>
-        <div className="col-sm col-wrapper my-auto">
+        </Col>
+        <Col className="col-wrapper my-auto">
           <hr className="hr-wrapper" />
-        </div>
-        <div className="col-sm col-wrapper my-auto">
+        </Col>
+        <Col md="auto" className="col-wrapper my-auto">
           <a
             href="#"
             className={count === 2 ? 'a-selected' : 'a-unselected'}
@@ -29,11 +33,11 @@ const MenuSwitcher: React.FunctionComponent = () => {
           >
             Outputs
           </a>
-        </div>
-        <div className="col-sm col-wrapper my-auto">
+        </Col>
+        <Col className="col-wrapper my-auto">
           <hr className="hr-wrapper" />
-        </div>
-        <div className="col-sm col-wrapper my-auto">
+        </Col>
+        <Col md="auto" className="col-wrapper my-auto">
           <a
             href="#"
             className={count === 3 ? 'a-selected' : 'a-unselected'}
@@ -41,11 +45,11 @@ const MenuSwitcher: React.FunctionComponent = () => {
           >
             Server
           </a>
-        </div>
-        <div className="col-sm col-wrapper my-auto">
+        </Col>
+        <Col className="col-wrapper my-auto">
           <hr className="hr-wrapper" />
-        </div>
-        <div className="col-sm col-wrapper my-auto">
+        </Col>
+        <Col md="auto" className="col-wrapper my-auto">
           <a
             href="#"
             className={count === 4 ? 'a-selected' : 'a-unselected'}
@@ -53,9 +57,12 @@ const MenuSwitcher: React.FunctionComponent = () => {
           >
             Summary
           </a>
-        </div>
-      </div>
-    </div>
+        </Col>
+        <Col md="2">
+          <p> </p>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 export default MenuSwitcher;
