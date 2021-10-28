@@ -26,13 +26,13 @@ const InputForm: React.FunctionComponent<InputFormProps> = ({
 
   return (
     <Fragment>
-      <Container className="bg-dark">
+      <Container className="container-color">
         <Container className="pt-4">
           <Row className="justify-content-between">
-            <Col md={4} className="my-auto">
+            <Col md={3} className="my-auto">
               <CreateInputModal onAddInput={handleAddInput} />
             </Col>
-            <Col md={4} className="my-auto">
+            <Col md={3} className="my-auto">
               <Button variant="outline-dark" className="icon-wrapper">
                 <img
                   src={gridviewicon}

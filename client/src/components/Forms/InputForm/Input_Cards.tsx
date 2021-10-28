@@ -10,8 +10,8 @@ type InputCardsProps = {
 const InputCards: React.FunctionComponent<InputCardsProps> = ({
   inputList,
 }: InputCardsProps) => (
-  <Container className="p-5">
-    <Row md={3} className="g-5 justify-content-start text-left">
+  <Container className="px-5 py-4">
+    <Row md={3} className="g-5 justify-content-center">
       {inputList.map((_, idx) => (
         <Col>
           <Card bg="secondary" className="card-wrapper">

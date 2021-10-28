@@ -104,7 +104,11 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
   return (
     <React.Fragment>
       <div className="float-left">
-        <Button variant="primary" onClick={handleShow}>
+        <Button
+          className="rounded-0 px-4 py-2 button-text"
+          variant="primary"
+          onClick={handleShow}
+        >
           Create new
         </Button>
       </div>

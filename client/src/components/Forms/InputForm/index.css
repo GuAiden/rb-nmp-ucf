@@ -44,3 +44,11 @@
     border: none;
     color: white; 
 }
+
+.container-color {
+    background-color: rgb(34, 30, 30);
+}
+
+.button-text {
+    font-size: larger;
+}
