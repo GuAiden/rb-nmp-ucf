@@ -56,7 +56,7 @@ const InputCards: React.FunctionComponent<InputCardsProps> = ({
                     </Col>
                   </Row>
                 ) : (
-                  <Row className="py-3 mt-5"></Row>
+                  <Row className="py-4 mt-1"></Row>
                 )}
                 <Row className="justify-content-end g-0 mt-2">
                   <Col md={{ offset: 5 }}>
