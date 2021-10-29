@@ -56,3 +56,9 @@
 .margin-left {
     margin-left: 15px;
 }
+
+.list-p-0 {
+    padding-left: 15%;
+    margin-bottom: 0;
+    margin-top: 0;
+}

@@ -141,10 +141,19 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
   // Popover to let user know about invalid input
   const invalidInputPopover = (
     <Popover id="popover-basic">
-      <Popover.Header as="h3">Popover right</Popover.Header>
-      <Popover.Body>
-        And here's some <strong>amazing</strong> content. It's very engaging.
-        right?
+      <Popover.Body className="my-auto">
+        Please enter a valid:
+        <ul className="list-p-0">
+          <li>
+            <b>Name</b>
+          </li>
+          <li>
+            <b>Number</b>
+          </li>
+          <li>
+            <b>Ouput</b>
+          </li>
+        </ul>
       </Popover.Body>
     </Popover>
   );
