@@ -1,4 +1,4 @@
-import Enzyme, { mount, shallow } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import CreateInputModal from '../components/Forms/InputForm/Create_Input_Modal';
 import { Input } from '../components/Forms/Input_Types';
