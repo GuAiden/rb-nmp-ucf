@@ -60,7 +60,7 @@ const InputCards: React.FunctionComponent<InputCardsProps> = ({
                 )}
                 <Row className="justify-content-end g-0 mt-2">
                   <Col md={{ offset: 5 }}>
-                    <EditInputModal />
+                    <EditInputModal inputList={inputList} index={idx} />
                   </Col>
                   <Col>
                     <Button
