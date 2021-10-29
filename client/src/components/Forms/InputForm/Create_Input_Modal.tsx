@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
-import { Button, Form, FormControl, InputGroup, Modal } from 'react-bootstrap';
+import {
+  Button,
+  Form,
+  FormControl,
+  InputGroup,
+  Modal,
+  Popover,
+  OverlayTrigger,
+} from 'react-bootstrap';
 import { Input } from '../Input_Types';
 import './index.css';
 
 type CreateInputModalProps = {
   onAddInput: (userInputs: Input) => void;
+  inputList: Input[];
 };
 
 const initialState = {
@@ -17,6 +26,7 @@ const initialState = {
  */
 const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
   onAddInput,
+  inputList,
 }: CreateInputModalProps) => {
   /**
    * showState -> responsible for opening and closing modal
@@ -38,16 +48,43 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
     setShow(false);
     setConversion(false);
     setOutput(false);
+    setInput(initialState);
+  };
+
+  const isValidInput = (): boolean => {
+    // Validate channelNumber uniqueness
+    if (
+      inputList.some(
+        (savedInput) => savedInput.channelNumber === input.channelNumber,
+      )
+    ) {
+      return false;
+    }
+
+    // Validate existence of channel number, name and output
+    // Might want to validate data integrity as well later
+    if (
+      typeof input.channelName === 'undefined' ||
+      typeof input.channelNumber === 'undefined' ||
+      typeof input.units === 'undefined'
+    ) {
+      return false;
+    }
+    return true;
   };
 
   // CreateInputModal add button handler
-  const handleAddInput = (): void => {
+  const handleAddInput = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    if (!isValidInput()) {
+      e.preventDefault();
+      return;
+    }
+
     onAddInput(input);
     setShow(false);
     setOutput(false);
     setConversion(false);
     setInput(initialState);
-    console.log(input);
   };
 
   // onChange handlers for form inputs
@@ -100,6 +137,49 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
     setConversion(!isConversion);
     setInput({ ...input, conversion: !isConversion });
   };
+
+  // Popover to let user know about invalid input
+  const invalidInputPopover = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3">Popover right</Popover.Header>
+      <Popover.Body>
+        And here's some <strong>amazing</strong> content. It's very engaging.
+        right?
+      </Popover.Body>
+    </Popover>
+  );
+
+  // Button for when user input is still invalid and untrustworthy
+  const DangerAddButton: React.FunctionComponent = () => (
+    <OverlayTrigger
+      trigger="click"
+      placement="left"
+      overlay={invalidInputPopover}
+    >
+      <Button
+        variant="danger"
+        size="lg"
+        onClick={(e): void => handleAddInput(e)}
+        className="border rounded-0 modal-add-wrapper px-5"
+        id="danger-add-button"
+      >
+        Add
+      </Button>
+    </OverlayTrigger>
+  );
+
+  // Button for when a successful input can be added
+  const AddButton: React.FunctionComponent = () => (
+    <Button
+      variant="secondary"
+      size="lg"
+      onClick={(e): void => handleAddInput(e)}
+      className="border rounded-0 modal-add-wrapper px-5"
+      id="add-button"
+    >
+      Add
+    </Button>
+  );
 
   return (
     <React.Fragment>
@@ -190,46 +270,40 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                 </div>
               </div>
               {/* X AND Y INPUTS */}
-              <div className="row mt-4 justify-content-around mx-auto">
-                <div className="col-lg-5">
-                  <InputGroup className="input-group-sm mb-3">
-                    <InputGroup.Text className="input-group-text-wrapper">
-                      X:
-                    </InputGroup.Text>
-                    <FormControl
-                      aria-label="X input value"
-                      aria-describedby="inputGroup-sizing-sm"
-                      className="text-input-wrapper"
-                      onChange={(e): void => onXChange(e)}
-                    ></FormControl>
-                  </InputGroup>
+              {isOutput && isConversion && (
+                <div className="row mt-4 justify-content-around mx-auto">
+                  <div className="col-lg-5">
+                    <InputGroup className="input-group-sm mb-3">
+                      <InputGroup.Text className="input-group-text-wrapper">
+                        X:
+                      </InputGroup.Text>
+                      <FormControl
+                        aria-label="X input value"
+                        aria-describedby="inputGroup-sizing-sm"
+                        className="text-input-wrapper"
+                        onChange={(e): void => onXChange(e)}
+                      ></FormControl>
+                    </InputGroup>
+                  </div>
+                  <div className="col-lg-5">
+                    <InputGroup className="input-group-sm mb-3">
+                      <InputGroup.Text className="input-group-text-wrapper">
+                        Y:
+                      </InputGroup.Text>
+                      <FormControl
+                        aria-label="Y input value"
+                        aria-describedby="inputGroup-sizing-sm"
+                        className="text-input-wrapper"
+                        onChange={(e): void => onYChange(e)}
+                      ></FormControl>
+                    </InputGroup>
+                  </div>
                 </div>
-                <div className="col-lg-5">
-                  <InputGroup className="input-group-sm mb-3">
-                    <InputGroup.Text className="input-group-text-wrapper">
-                      Y:
-                    </InputGroup.Text>
-                    <FormControl
-                      aria-label="Y input value"
-                      aria-describedby="inputGroup-sizing-sm"
-                      className="text-input-wrapper"
-                      onChange={(e): void => onYChange(e)}
-                    ></FormControl>
-                  </InputGroup>
-                </div>
-              </div>
+              )}
               {/* ADD OR SAVE MODAL BUTTONS */}
               <div className="row justify-content-end mt-4">
                 <div className="col-3">
-                  <Button
-                    variant="secondary"
-                    size="lg"
-                    onClick={(): void => handleAddInput()}
-                    className="border rounded-0 modal-add-wrapper px-5"
-                    id="add-button"
-                  >
-                    Add
-                  </Button>
+                  {isValidInput() ? <AddButton /> : <DangerAddButton />}
                 </div>
                 <div className="col-3">
                   <Button

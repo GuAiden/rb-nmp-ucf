@@ -32,7 +32,10 @@ const InputForm: React.FunctionComponent<InputFormProps> = ({
         <Container className="pt-4">
           <Row className="justify-content-between">
             <Col md={3} className="my-auto">
-              <CreateInputModal onAddInput={handleAddInput} />
+              <CreateInputModal
+                onAddInput={handleAddInput}
+                inputList={inputList}
+              />
             </Col>
             <Col md={3} className="my-auto">
               <Button variant="outline-dark" className="icon-wrapper">
