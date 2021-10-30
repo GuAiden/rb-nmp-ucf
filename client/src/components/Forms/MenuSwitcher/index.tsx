@@ -1,4 +1,5 @@
 import React from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import './menuswitcher.css';
 
 type MenuSwitcherProps = {
@@ -14,9 +15,12 @@ const MenuSwitcher: React.FunctionComponent<MenuSwitcherProps> = ({
   onFormChange,
   form,
 }: MenuSwitcherProps) => (
-  <div className="container border border-primary mt-5 bg-primary">
-    <div className="row">
-      <div className="col-sm col-wrapper my-auto">
+  <Container className="container-blue border border-primary mt-5">
+    <Row className="justify-content-md-center mt-4 mb-4">
+      <Col md="2">
+        <p> </p>
+      </Col>
+      <Col md="auto" className="col-wrapper my-auto">
         <a
           href="#"
           className={form === 'InputForm' ? 'a-selected' : 'a-unselected'}
@@ -24,11 +28,11 @@ const MenuSwitcher: React.FunctionComponent<MenuSwitcherProps> = ({
         >
           Inputs
         </a>
-      </div>
-      <div className="col-sm col-wrapper my-auto">
+      </Col>
+      <Col className="col-wrapper my-auto">
         <hr className="hr-wrapper" />
-      </div>
-      <div className="col-sm col-wrapper my-auto">
+      </Col>
+      <Col md="auto" className="col-wrapper my-auto">
         <a
           href="#"
           className={form === 'OutputForm' ? 'a-selected' : 'a-unselected'}
@@ -36,11 +40,11 @@ const MenuSwitcher: React.FunctionComponent<MenuSwitcherProps> = ({
         >
           Outputs
         </a>
-      </div>
-      <div className="col-sm col-wrapper my-auto">
+      </Col>
+      <Col className="col-wrapper my-auto">
         <hr className="hr-wrapper" />
-      </div>
-      <div className="col-sm col-wrapper my-auto">
+      </Col>
+      <Col md="auto" className="col-wrapper my-auto">
         <a
           href="#"
           className={form === 'ServerForm' ? 'a-selected' : 'a-unselected'}
@@ -48,11 +52,11 @@ const MenuSwitcher: React.FunctionComponent<MenuSwitcherProps> = ({
         >
           Server
         </a>
-      </div>
-      <div className="col-sm col-wrapper my-auto">
+      </Col>
+      <Col className="col-wrapper my-auto">
         <hr className="hr-wrapper" />
-      </div>
-      <div className="col-sm col-wrapper my-auto">
+      </Col>
+      <Col md="auto" className="col-wrapper my-auto">
         <a
           href="#"
           className={form === 'SummaryForm' ? 'a-selected' : 'a-unselected'}
@@ -60,8 +64,11 @@ const MenuSwitcher: React.FunctionComponent<MenuSwitcherProps> = ({
         >
           Summary
         </a>
-      </div>
-    </div>
-  </div>
+      </Col>
+      <Col md="2">
+        <p> </p>
+      </Col>
+    </Row>
+  </Container>
 );
 export default MenuSwitcher;

@@ -37,7 +37,7 @@ const ServerForm: React.FunctionComponent<ServerFormProps> = ({
   };
 
   return (
-    <Container className="bg-dark vh-60">
+    <Container className="container-color">
       <Row>
         <Col md={5}>
           <h3 className="server-header mt-4"> Server </h3>
@@ -81,7 +81,9 @@ const ServerForm: React.FunctionComponent<ServerFormProps> = ({
           </Form.Group>
         </Col>
       </Row>
-      <Row className="h-100"></Row>
+      <Row>
+        <p> </p>
+      </Row>
     </Container>
   );
 };

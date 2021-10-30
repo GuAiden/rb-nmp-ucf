@@ -1,5 +1,5 @@
 .card-text {
-    color: white;
+    color: rgb(136, 136, 136);
     display: flex;
     justify-content: left;
     align-items: flex-start;
@@ -14,4 +14,38 @@
     font-style: italic;
     font-size: large;
     font-weight: 400;
+}
+
+.card-body {
+    padding-left: 8%;
+    background-color: rgb(65, 65, 65);
+    border: none;
+}
+
+.card-wrapper {
+    background-color: rgb(65, 65, 65);
+}
+
+.button-clear {
+    background-color: transparent;
+    border: 2px;
+    border-color: white;
+}
+
+.button-clear:hover {
+    background-color: grey;
+    outline: none;
+}
+
+.button-clear:focus {
+    background-color: grey;
+    outline: none;
+}
+
+.image-left {
+    float: left;
+}
+
+.card-button-text {
+    font-size: small;
 }

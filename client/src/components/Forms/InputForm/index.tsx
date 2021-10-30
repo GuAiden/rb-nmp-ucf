@@ -8,7 +8,9 @@ import gridviewicon from '../../../assets/gridviewicon.png';
 import stackedviewicon from '../../../assets/stackedviewicon.png';
 
 type InputFormProps = {
-  onInputChange: (userInputs: Input) => void;
+  onInputChange: (userInput: Input) => void;
+  onInputDelete: (channelNumber: number) => void;
+  onInputEdit: (userInput: Input, idx: number) => void;
   inputList: Input[];
 };
 
@@ -18,6 +20,8 @@ type InputFormProps = {
  */
 const InputForm: React.FunctionComponent<InputFormProps> = ({
   onInputChange,
+  onInputDelete,
+  onInputEdit,
   inputList,
 }: InputFormProps) => {
   const handleAddInput = (userInput: Input): void => {
@@ -26,13 +30,16 @@ const InputForm: React.FunctionComponent<InputFormProps> = ({
 
   return (
     <Fragment>
-      <Container className="bg-dark">
+      <Container className="container-color">
         <Container className="pt-4">
           <Row className="justify-content-between">
-            <Col md={4} className="my-auto">
-              <CreateInputModal onAddInput={handleAddInput} />
+            <Col md={3} className="my-auto">
+              <CreateInputModal
+                onAddInput={handleAddInput}
+                inputList={inputList}
+              />
             </Col>
-            <Col md={4} className="my-auto">
+            <Col md={3} className="my-auto">
               <Button variant="outline-dark" className="icon-wrapper">
                 <img
                   src={gridviewicon}
@@ -50,7 +57,11 @@ const InputForm: React.FunctionComponent<InputFormProps> = ({
             </Col>
           </Row>
         </Container>
-        <InputCards inputList={inputList} />
+        <InputCards
+          inputList={inputList}
+          onInputDelete={onInputDelete}
+          onInputEdit={onInputEdit}
+        />
       </Container>
     </Fragment>
   );

@@ -3,6 +3,7 @@
 .a-unselected {
     text-decoration: none; 
     color: white; 
+    font-size:large;
 }
 
 .a-selected {
@@ -12,6 +13,7 @@
     font-weight: 600; 
     font-size: 20px;
     font-style: italic; 
+    font-size:x-large;
 }
 
 .a-selected:hover {
@@ -31,4 +33,12 @@
 
 .col-wrapper {
     margin-top: -2.5px; 
+}
+
+.container-blue {
+    background-color: rgb(5, 45, 114);
+}
+
+.border-primary {
+    border-color: rgb(19, 43, 71) !important;
 }

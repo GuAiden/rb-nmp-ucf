@@ -1,0 +1,23 @@
+.button-clear {
+    background-color: transparent;
+    border: 2px;
+    border-color: white;
+}
+
+.button-clear:hover {
+    background-color: grey;
+    outline: none;
+}
+
+.button-clear:focus {
+    background-color: grey;
+    outline: none;
+}
+
+.image-left {
+    float: left;
+}
+
+.card-button-text {
+    font-size: small;
+}

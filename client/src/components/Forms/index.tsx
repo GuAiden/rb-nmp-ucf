@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FirmwareState, Input, Output, ServerInput } from './Input_Types';
 import InputForm from './InputForm';
 import OutputForm from './OutputForm';
@@ -23,8 +23,32 @@ const Forms: React.FunctionComponent = () => {
    * Handler to append input to list from create input modal
    * @param userInputs created input
    */
-  const handleInputChange = (userInputs: Input): void => {
-    setState({ ...state, inputs: state.inputs.concat(userInputs) });
+  const handleInputChange = (userInput: Input): void => {
+    setState({ ...state, inputs: state.inputs.concat(userInput) });
+  };
+
+  /**
+   * Handler to delete an input from list
+   * We can use the channelNumber to delete from the list since it acts
+   * as a unique key for all inputs
+   * @param inputServer
+   */
+  const handleInputDeletion = (channelNumber: number): void => {
+    setState({
+      ...state,
+      inputs: state.inputs.filter(
+        (input) => input.channelNumber !== channelNumber,
+      ),
+    });
+  };
+
+  const handleInputEdit = (userInput: Input, idx: number): void => {
+    // Make shallow copy of inputs
+    const inputsCopy = [...state.inputs];
+    let oldInput = { ...inputsCopy[idx] };
+    oldInput = userInput;
+    inputsCopy[idx] = oldInput;
+    setState({ ...state, inputs: inputsCopy });
   };
 
   /**
@@ -47,11 +71,20 @@ const Forms: React.FunctionComponent = () => {
     console.log(state);
   };
 
+  useEffect(() => {
+    console.log(state.inputs);
+  });
+
   return (
     <React.Fragment>
       <MenuSwitcher onFormChange={handleFormChange} form={form} />
       {form === 'InputForm' && (
-        <InputForm onInputChange={handleInputChange} inputList={state.inputs} />
+        <InputForm
+          onInputChange={handleInputChange}
+          onInputDelete={handleInputDeletion}
+          onInputEdit={handleInputEdit}
+          inputList={state.inputs}
+        />
       )}
       {form === 'OutputForm' && <OutputForm />}
       {form === 'ServerForm' && (
