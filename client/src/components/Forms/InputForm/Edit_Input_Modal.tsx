@@ -65,6 +65,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
       input.channelName === '' ||
       typeof input.channelNumber === 'undefined' ||
       Number.isNaN(input.channelNumber) ||
+      input.channelNumber < 0 ||
       typeof input.units === 'undefined' ||
       input.units === ''
     ) {
@@ -220,6 +221,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                     className="text-input-wrapper"
                     value={input.channelName}
                     onChange={(e): void => onChannelNameChange(e)}
+                    maxLength={20}
                   />
                 </Form.Group>
                 <Form.Group
@@ -228,7 +230,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                 >
                   <Form.Label>Channel Number</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="number"
                     className="text-input-wrapper"
                     value={input.channelNumber}
                     onChange={(e): void => onChannelNumberChange(e)}
@@ -248,6 +250,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                       className="text-input-wrapper"
                       onChange={(e): void => onUnitsChange(e)}
                       value={input.units}
+                      maxLength={10}
                     ></FormControl>
                   </InputGroup>
                 </div>
@@ -292,6 +295,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                         className="text-input-wrapper"
                         onChange={(e): void => onXChange(e)}
                         value={input.x}
+                        maxLength={12}
                       ></FormControl>
                     </InputGroup>
                   </div>
@@ -306,6 +310,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                         className="text-input-wrapper"
                         onChange={(e): void => onYChange(e)}
                         value={input.y}
+                        maxLength={12}
                       ></FormControl>
                     </InputGroup>
                   </div>

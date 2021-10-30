@@ -68,6 +68,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
       input.channelName === '' ||
       typeof input.channelNumber === 'undefined' ||
       Number.isNaN(input.channelNumber) ||
+      input.channelNumber < 0 ||
       typeof input.units === 'undefined' ||
       input.units === ''
     ) {
@@ -225,6 +226,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                     type="text"
                     className="text-input-wrapper"
                     onChange={(e): void => onChannelNameChange(e)}
+                    maxLength={20}
                   />
                 </Form.Group>
                 <Form.Group
@@ -233,7 +235,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                 >
                   <Form.Label>Channel Number</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="number"
                     className="text-input-wrapper"
                     onChange={(e): void => onChannelNumberChange(e)}
                   />
@@ -251,6 +253,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                       aria-describedby="inputGroup-sizing-sm"
                       className="text-input-wrapper"
                       onChange={(e): void => onUnitsChange(e)}
+                      maxLength={10}
                     ></FormControl>
                   </InputGroup>
                 </div>
@@ -294,6 +297,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                         aria-describedby="inputGroup-sizing-sm"
                         className="text-input-wrapper"
                         onChange={(e): void => onXChange(e)}
+                        maxLength={12}
                       ></FormControl>
                     </InputGroup>
                   </div>
@@ -307,6 +311,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                         aria-describedby="inputGroup-sizing-sm"
                         className="text-input-wrapper"
                         onChange={(e): void => onYChange(e)}
+                        maxLength={12}
                       ></FormControl>
                     </InputGroup>
                   </div>

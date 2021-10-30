@@ -16,3 +16,7 @@
     font-style: italic;
     color: white;
 }
+
+.container-color {
+    background-color: rgb(34, 30, 30);
+}

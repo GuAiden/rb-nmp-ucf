@@ -56,7 +56,7 @@ const ServerForm: React.FunctionComponent<ServerFormProps> = ({
           </Form.Group>
         </Col>
       </Row>
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-md-center mb-5">
         <Col md={3}>
           <Form.Group className="mt-3 text-light" controlId="server.UDPPort">
             <Form.Label className="form-label-text">UDP Port</Form.Label>
@@ -81,7 +81,10 @@ const ServerForm: React.FunctionComponent<ServerFormProps> = ({
           </Form.Group>
         </Col>
       </Row>
-      <Row>
+      <Row className="mb-5 py-5">
+        <p> </p>
+      </Row>
+      <Row className="mb-5 py-5">
         <p> </p>
       </Row>
     </Container>
