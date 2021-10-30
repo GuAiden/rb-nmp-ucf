@@ -253,7 +253,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                       aria-describedby="inputGroup-sizing-sm"
                       className="text-input-wrapper"
                       onChange={(e): void => onUnitsChange(e)}
-                      maxLength={20}
+                      maxLength={10}
                     ></FormControl>
                   </InputGroup>
                 </div>
