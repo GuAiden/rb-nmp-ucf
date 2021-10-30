@@ -23,8 +23,8 @@ const Forms: React.FunctionComponent = () => {
    * Handler to append input to list from create input modal
    * @param userInputs created input
    */
-  const handleInputChange = (userInputs: Input): void => {
-    setState({ ...state, inputs: state.inputs.concat(userInputs) });
+  const handleInputChange = (userInput: Input): void => {
+    setState({ ...state, inputs: state.inputs.concat(userInput) });
   };
 
   /**
@@ -40,6 +40,15 @@ const Forms: React.FunctionComponent = () => {
         (input) => input.channelNumber !== channelNumber,
       ),
     });
+  };
+
+  const handleInputEdit = (userInput: Input, idx: number): void => {
+    // Make shallow copy of inputs
+    const inputsCopy = [...state.inputs];
+    let oldInput = { ...inputsCopy[idx] };
+    oldInput = userInput;
+    inputsCopy[idx] = oldInput;
+    setState({ ...state, inputs: inputsCopy });
   };
 
   /**
@@ -73,6 +82,7 @@ const Forms: React.FunctionComponent = () => {
         <InputForm
           onInputChange={handleInputChange}
           onInputDelete={handleInputDeletion}
+          onInputEdit={handleInputEdit}
           inputList={state.inputs}
         />
       )}

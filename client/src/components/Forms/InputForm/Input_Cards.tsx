@@ -7,11 +7,13 @@ import './Input_Cards.css';
 type InputCardsProps = {
   inputList: Input[];
   onInputDelete: (idx: number) => void;
+  onInputEdit: (userInput: Input, idx: number) => void;
 };
 
 const InputCards: React.FunctionComponent<InputCardsProps> = ({
   inputList,
   onInputDelete,
+  onInputEdit,
 }: InputCardsProps) => (
   <Container className="px-5 py-4">
     {/*
@@ -60,7 +62,11 @@ const InputCards: React.FunctionComponent<InputCardsProps> = ({
                 )}
                 <Row className="justify-content-end g-0 mt-2">
                   <Col md={{ offset: 5 }}>
-                    <EditInputModal inputList={inputList} index={idx} />
+                    <EditInputModal
+                      inputList={inputList}
+                      index={idx}
+                      onInputEdit={onInputEdit}
+                    />
                   </Col>
                   <Col>
                     <Button
