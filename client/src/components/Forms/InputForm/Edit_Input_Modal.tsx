@@ -3,8 +3,8 @@ import {
   Button,
   FormControl,
   Modal,
-  // Popover,
-  // OverlayTrigger,
+  Popover,
+  OverlayTrigger,
   Form,
   InputGroup,
 } from 'react-bootstrap';
@@ -43,10 +43,42 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
 
   const handleShow = (): void => {
     setShow(true);
+    console.log(input);
+  };
+
+  const isValidInput = (): boolean => {
+    // Validate channelNumber uniqueness
+    if (
+      inputList.some(
+        (savedInput) =>
+          savedInput.channelNumber === input.channelNumber &&
+          input.channelNumber !== currentInput.channelNumber,
+      )
+    ) {
+      return false;
+    }
+
+    // Validate existence of channel number, name and output
+    // Might want to validate data integrity as well later
+    if (
+      typeof input.channelName === 'undefined' ||
+      input.channelName === '' ||
+      typeof input.channelNumber === 'undefined' ||
+      Number.isNaN(input.channelNumber) ||
+      typeof input.units === 'undefined' ||
+      input.units === ''
+    ) {
+      return false;
+    }
+    return true;
   };
 
   // CreateInputModal add button handler
   const handleInputEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    if (!isValidInput()) {
+      e.preventDefault();
+      return;
+    }
     onInputEdit(input, index);
     setShow(false);
     setOutput(false);
@@ -104,44 +136,43 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
     setInput({ ...input, conversion: !isConversion });
   };
 
-  // // Popover to let user know about invalid input
-  // const invalidInputPopover = (
-  //   <Popover id="popover-basic">
-  //     <Popover.Body className="my-auto">
-  //       Please enter a valid:
-  //       <ul className="list-p-0">
-  //         <li>
-  //           <b>Name</b>
-  //         </li>
-  //         <li>
-  //           <b>Number</b>
-  //         </li>
-  //         <li>
-  //           <b>Ouput</b>
-  //         </li>
-  //       </ul>
-  //     </Popover.Body>
-  //   </Popover>
-  // );
+  // Popover to let user know about invalid input
+  const invalidInputPopover = (
+    <Popover id="popover-basic">
+      <Popover.Body className="my-auto">
+        Please enter a valid:
+        <ul className="list-p-0">
+          <li>
+            <b>Name</b>
+          </li>
+          <li>
+            <b>Number</b>
+          </li>
+          <li>
+            <b>Ouput</b>
+          </li>
+        </ul>
+      </Popover.Body>
+    </Popover>
+  );
 
-  // // Button for when user input is still invalid and untrustworthy
-  // const DangerEditButton: React.FunctionComponent = () => (
-  //   <OverlayTrigger
-  //     trigger="click"
-  //     placement="left"
-  //     overlay={invalidInputPopover}
-  //   >
-  //     <Button
-  //       variant="danger"
-  //       size="lg"
-  //       onClick={(e): void => handleInputEdit(e)}
-  //       className="border rounded-0 modal-add-wrapper px-5"
-  //       id="danger-add-button"
-  //     >
-  //       Edit
-  //     </Button>
-  //   </OverlayTrigger>
-  // );
+  // Button for when user input is still invalid and untrustworthy
+  const DangerEditButton: React.FunctionComponent = () => (
+    <OverlayTrigger
+      trigger="click"
+      placement="left"
+      overlay={invalidInputPopover}
+    >
+      <Button
+        variant="danger"
+        size="lg"
+        className="border rounded-0 modal-add-wrapper px-5"
+        id="danger-add-button"
+      >
+        Edit
+      </Button>
+    </OverlayTrigger>
+  );
 
   // Button for when a successful input can be added
   const EditButton: React.FunctionComponent = () => (
@@ -283,7 +314,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
               {/* ADD OR SAVE MODAL BUTTONS */}
               <div className="row justify-content-end mt-4">
                 <div className="col-3">
-                  <EditButton />
+                  {isValidInput() ? <EditButton /> : <DangerEditButton />}
                 </div>
                 <div className="col-3">
                   <Button

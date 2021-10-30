@@ -65,8 +65,11 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
     // Might want to validate data integrity as well later
     if (
       typeof input.channelName === 'undefined' ||
+      input.channelName === '' ||
       typeof input.channelNumber === 'undefined' ||
-      typeof input.units === 'undefined'
+      Number.isNaN(input.channelNumber) ||
+      typeof input.units === 'undefined' ||
+      input.units === ''
     ) {
       return false;
     }
