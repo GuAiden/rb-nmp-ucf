@@ -65,6 +65,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
       input.channelName === '' ||
       typeof input.channelNumber === 'undefined' ||
       Number.isNaN(input.channelNumber) ||
+      input.channelNumber < 0 ||
       typeof input.units === 'undefined' ||
       input.units === ''
     ) {
