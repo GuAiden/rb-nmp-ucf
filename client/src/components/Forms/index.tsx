@@ -84,13 +84,20 @@ const Forms: React.FunctionComponent = () => {
           onInputDelete={handleInputDeletion}
           onInputEdit={handleInputEdit}
           inputList={state.inputs}
+          onFormChange={handleFormChange}
         />
       )}
-      {form === 'OutputForm' && <OutputForm />}
+      {form === 'OutputForm' && <OutputForm onFormChange={handleFormChange} />}
       {form === 'ServerForm' && (
-        <ServerForm onServerChange={handleServerChange} server={state.server} />
+        <ServerForm
+          onServerChange={handleServerChange}
+          server={state.server}
+          onFormChange={handleFormChange}
+        />
       )}
-      {form === 'SummaryForm' && <SummaryForm />}
+      {form === 'SummaryForm' && (
+        <SummaryForm onFormChange={handleFormChange} />
+      )}
     </React.Fragment>
   );
 };

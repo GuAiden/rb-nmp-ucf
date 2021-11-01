@@ -12,6 +12,7 @@ type InputFormProps = {
   onInputDelete: (channelNumber: number) => void;
   onInputEdit: (userInput: Input, idx: number) => void;
   inputList: Input[];
+  onFormChange: (form: string) => void;
 };
 
 /**
@@ -23,6 +24,7 @@ const InputForm: React.FunctionComponent<InputFormProps> = ({
   onInputDelete,
   onInputEdit,
   inputList,
+  onFormChange,
 }: InputFormProps) => {
   const handleAddInput = (userInput: Input): void => {
     onInputChange(userInput);
@@ -62,6 +64,19 @@ const InputForm: React.FunctionComponent<InputFormProps> = ({
           onInputDelete={onInputDelete}
           onInputEdit={onInputEdit}
         />
+      </Container>
+      <Container>
+        <Row className="justify-content-end gx-0">
+          <Col>
+            <Button
+              variant="primary"
+              className="rounded-0 mt-5 py-2 px-5 float-end"
+              onClick={(): void => onFormChange('OutputForm')}
+            >
+              <p className="px-2 my-auto button-next">Next</p>
+            </Button>
+          </Col>
+        </Row>
       </Container>
     </Fragment>
   );
