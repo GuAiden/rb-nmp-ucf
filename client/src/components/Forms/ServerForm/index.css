@@ -20,3 +20,9 @@
 .container-color {
     background-color: rgb(34, 30, 30);
 }
+
+.button-clear {
+    background-color: transparent;
+    border: 2px;
+    border-color: white;
+}
