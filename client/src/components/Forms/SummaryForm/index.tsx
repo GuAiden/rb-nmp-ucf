@@ -46,7 +46,7 @@ const SummaryForm: React.FunctionComponent<SummaryFormProps> = ({
         <Row className="pe-2">
           <Col className="px-5 mt-3 mb-3">
             <div className="scroll-view ps-5 pe-4 py-0">
-              <p className="ms-1 px-5 py-3 text-light text-start overflow-auto summary-bg">
+              <p className="ms-1 px-5 py-4 text-light text-start overflow-auto summary-bg">
                 <pre id="json">{JSON.stringify(summary, null, 2)}</pre>
               </p>
             </div>

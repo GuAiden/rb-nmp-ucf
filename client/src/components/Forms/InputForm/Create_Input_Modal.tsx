@@ -17,6 +17,9 @@ type CreateInputModalProps = {
 };
 
 const initialState = {
+  channelName: '',
+  channelNumber: NaN,
+  units: '',
   output: false,
   conversion: false,
 } as Input;
@@ -36,8 +39,6 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
    */
   const [show, setShow] = useState(false);
   const [input, setInput] = useState<Input>(initialState);
-  const [isConversion, setConversion] = useState<boolean>(false);
-  const [isOutput, setOutput] = useState<boolean>(false);
 
   // Modal open and close handlers
   const handleShow = (): void => {
@@ -46,8 +47,6 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
 
   const handleClose = (): void => {
     setShow(false);
-    setConversion(false);
-    setOutput(false);
     setInput(initialState);
   };
 
@@ -64,12 +63,9 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
     // Validate existence of channel number, name and output
     // Might want to validate data integrity as well later
     if (
-      typeof input.channelName === 'undefined' ||
       input.channelName === '' ||
-      typeof input.channelNumber === 'undefined' ||
       Number.isNaN(input.channelNumber) ||
       input.channelNumber < 0 ||
-      typeof input.units === 'undefined' ||
       input.units === ''
     ) {
       return false;
@@ -86,8 +82,6 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
 
     onAddInput(input);
     setShow(false);
-    setOutput(false);
-    setConversion(false);
     setInput(initialState);
   };
 
@@ -133,13 +127,11 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
   };
 
   const onOutputChange = (): void => {
-    setOutput(!isOutput);
-    setInput({ ...input, output: !isOutput });
+    setInput({ ...input, output: !input.output });
   };
 
   const onConversionChange = (): void => {
-    setConversion(!isConversion);
-    setInput({ ...input, conversion: !isConversion });
+    setInput({ ...input, conversion: !input.conversion });
   };
 
   // Popover to let user know about invalid input
@@ -266,7 +258,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                           label="Output?"
                           name="group1"
                           type={type}
-                          checked={isOutput}
+                          checked={input.output}
                           onChange={(): void => onOutputChange()}
                           id={`inline-${type}-1`}
                         />
@@ -275,7 +267,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                           label="Conversion?"
                           name="group1"
                           type={type}
-                          checked={isConversion}
+                          checked={input.conversion}
                           onChange={(): void => onConversionChange()}
                           id={`inline-${type}-2`}
                         />
@@ -285,7 +277,7 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
                 </div>
               </div>
               {/* X AND Y INPUTS */}
-              {isOutput && isConversion && (
+              {input.conversion && (
                 <div className="row mt-4 justify-content-around mx-auto">
                   <div className="col-lg-5">
                     <InputGroup className="input-group-sm mb-3">
