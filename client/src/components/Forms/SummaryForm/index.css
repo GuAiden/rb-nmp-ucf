@@ -7,3 +7,16 @@
     border: 2px;
     border-color: white;
 }
+
+.button-text {
+    font-size: larger;
+}
+
+.summary-bg {
+    background-color: rgb(68, 68, 68);
+}
+
+.scroll-view {
+    overflow: auto;
+    height: 485px;
+}
