@@ -20,3 +20,14 @@
     overflow: auto;
     height: 485px;
 }
+
+.button-switchview {
+    background-color: transparent;
+    border: none;
+    font-size: larger;
+}
+
+.switch-view {
+    font-size: x-large;
+    font-weight: bold;
+}

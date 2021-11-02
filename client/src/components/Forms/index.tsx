@@ -54,9 +54,9 @@ const Forms: React.FunctionComponent = () => {
   /**
    * Uncomment when components have been made, pass down as prop to relevant component
    */
-  // function handleOutputChange(userOutputs: Output[]): void {
-  //   setState({ ...state, outputs: userOutputs });
-  // }
+  function handleOutputChange(userOutput: Output): void {
+    setState({ ...state, outputs: state.outputs.concat(userOutput) });
+  }
 
   function handleServerChange(inputServer: ServerInput): void {
     setState({ ...state, server: inputServer });
@@ -87,7 +87,13 @@ const Forms: React.FunctionComponent = () => {
           onFormChange={handleFormChange}
         />
       )}
-      {form === 'OutputForm' && <OutputForm onFormChange={handleFormChange} />}
+      {form === 'OutputForm' && (
+        <OutputForm
+          onFormChange={handleFormChange}
+          onOuputChange={handleOutputChange}
+          outputList={state.outputs}
+        />
+      )}
       {form === 'ServerForm' && (
         <ServerForm
           onServerChange={handleServerChange}
