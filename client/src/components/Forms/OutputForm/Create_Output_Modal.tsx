@@ -1,52 +1,62 @@
 import React, { useState } from 'react';
 import {
   Button,
+  Form,
   FormControl,
+  InputGroup,
   Modal,
   Popover,
   OverlayTrigger,
-  Form,
-  InputGroup,
+  DropdownButton,
+  Dropdown,
 } from 'react-bootstrap';
-import { Input } from '../Input_Types';
-import './Edit_Input_Modal.css';
-// import edit_icon from '../../../assets/edit_icon.png';
+import { Input, Output } from '../Input_Types';
+import './index.css';
 
-type EditInputModalProps = {
+type CreateOuputModalProps = {
+  onAddOutput: (userOutput: Output) => void;
+  outputList: Output[];
   inputList: Input[];
-  index: number;
-  onInputEdit: (userInput: Input, idx: number) => void;
 };
 
-const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
+const initialState = {
+  channelName: '',
+  channelNumber: NaN,
+  units: '',
+  output: false,
+  conversion: false,
+} as Output;
+
+/**
+ * @returns A modal component that opens to handle form input for the 'inputs' page
+ */
+const CreateOuputModal: React.FunctionComponent<CreateOuputModalProps> = ({
+  onAddOutput,
+  outputList,
   inputList,
-  index,
-  onInputEdit,
-}: EditInputModalProps) => {
-  const currentInput: Input = { ...inputList[index] };
-  const [show, setShow] = useState(false);
-  const [input, setInput] = useState<Input>(currentInput);
-
+}: CreateOuputModalProps) => {
   /**
-   * Modal open and close handlers
+   * showState -> responsible for opening and closing modal
+   * outputState -> responsible for storing form inputs
    */
-  const handleClose = (): void => {
-    setShow(false);
-    setInput(currentInput);
-  };
+  const [show, setShow] = useState(false);
+  const [output, setOutput] = useState<Output>(initialState);
 
+  // Modal open and close handlers
   const handleShow = (): void => {
     setShow(true);
-    console.log(input);
   };
 
-  const isValidInput = (): boolean => {
+  const handleClose = (): void => {
+    setShow(false);
+    setOutput(initialState);
+  };
+
+  const isValidOutput = (): boolean => {
     // Validate channelNumber uniqueness
     if (
-      inputList.some(
-        (savedInput) =>
-          savedInput.channelNumber === input.channelNumber &&
-          input.channelNumber !== currentInput.channelNumber,
+      outputList.some(
+        (savedOutput) => savedOutput.channelNumber === output.channelNumber,
       )
     ) {
       return false;
@@ -55,24 +65,26 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
     // Validate existence of channel number, name and output
     // Might want to validate data integrity as well later
     if (
-      input.channelName === '' ||
-      Number.isNaN(input.channelNumber) ||
-      input.channelNumber < 0 ||
-      input.units === ''
+      output.channelName === '' ||
+      Number.isNaN(output.channelNumber) ||
+      output.channelNumber < 0 ||
+      output.units === ''
     ) {
       return false;
     }
     return true;
   };
 
-  // CreateInputModal add button handler
-  const handleInputEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    if (!isValidInput()) {
+  // CreateOuputModal add button handler
+  const handleAddOutput = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    if (!isValidOutput()) {
       e.preventDefault();
       return;
     }
-    onInputEdit(input, index);
+
+    onAddOutput(output);
     setShow(false);
+    setOutput(initialState);
   };
 
   // onChange handlers for form inputs
@@ -81,15 +93,14 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
       NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
     >[0],
   ): void => {
-    setInput({ ...input, channelName: e.currentTarget.value as string });
+    setOutput({ ...output, channelName: e.currentTarget.value as string });
   };
 
-  const onChannelNumberChange = (
-    e: Parameters<
-      NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
-    >[0],
-  ): void => {
-    setInput({ ...input, channelNumber: parseInt(e.currentTarget.value, 10) });
+  const onChannelNumberChange = (channelNum: number): void => {
+    setOutput({
+      ...output,
+      channelNumber: channelNum,
+    });
   };
 
   const onUnitsChange = (
@@ -97,7 +108,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
       NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
     >[0],
   ): void => {
-    setInput({ ...input, units: e.currentTarget.value as string });
+    setOutput({ ...output, units: e.currentTarget.value as string });
   };
 
   const onXChange = (
@@ -105,7 +116,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
       NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
     >[0],
   ): void => {
-    setInput({ ...input, x: parseInt(e.currentTarget.value, 10) });
+    setOutput({ ...output, x: parseInt(e.currentTarget.value, 10) });
   };
 
   const onYChange = (
@@ -113,23 +124,23 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
       NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
     >[0],
   ): void => {
-    setInput({ ...input, y: parseInt(e.currentTarget.value, 10) });
+    setOutput({ ...output, y: parseInt(e.currentTarget.value, 10) });
   };
 
   const onOutputChange = (): void => {
-    setInput({ ...input, output: !input.output });
+    setOutput({ ...output, output: !output.output });
   };
 
   const onConversionChange = (): void => {
-    if (input.conversion === true) {
-      setInput({
-        ...input,
-        conversion: !input.conversion,
+    if (output.conversion === true) {
+      setOutput({
+        ...output,
+        conversion: !output.conversion,
         x: undefined,
         y: undefined,
       });
     } else {
-      setInput({ ...input, conversion: !input.conversion });
+      setOutput({ ...output, conversion: !output.conversion });
     }
   };
 
@@ -154,7 +165,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
   );
 
   // Button for when user input is still invalid and untrustworthy
-  const DangerEditButton: React.FunctionComponent = () => (
+  const DangerAddButton: React.FunctionComponent = () => (
     <OverlayTrigger
       trigger="click"
       placement="left"
@@ -163,36 +174,59 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
       <Button
         variant="danger"
         size="lg"
+        onClick={(e): void => handleAddOutput(e)}
         className="border rounded-0 modal-add-wrapper px-5"
         id="danger-add-button"
       >
-        Edit
+        Add
       </Button>
     </OverlayTrigger>
   );
 
   // Button for when a successful input can be added
-  const EditButton: React.FunctionComponent = () => (
+  const AddButton: React.FunctionComponent = () => (
     <Button
       variant="secondary"
       size="lg"
-      onClick={(e): void => handleInputEdit(e)}
+      onClick={(e): void => handleAddOutput(e)}
       className="border rounded-0 modal-add-wrapper px-5"
       id="add-button"
     >
-      Edit
+      Add
     </Button>
+  );
+
+  const ChannelNumberOptions: React.FunctionComponent = () => (
+    <DropdownButton
+      id="dropdown-channelNumbers"
+      title={
+        Number.isNaN(output.channelNumber)
+          ? 'Channel Number'
+          : output.channelNumber
+      }
+      variant="secondary"
+      className="mt-4"
+    >
+      {inputList.map((input, idx) => (
+        <Dropdown.Item
+          as="button"
+          onClick={(): void => onChannelNumberChange(input.channelNumber)}
+        >
+          {input.channelNumber}
+        </Dropdown.Item>
+      ))}
+    </DropdownButton>
   );
 
   return (
     <React.Fragment>
       <div className="float-left">
         <Button
-          className="rounded-0 button-clear border px-3 py-1"
-          variant="secondary"
+          className="rounded-0 px-4 py-2 button-text margin-left"
+          variant="primary"
           onClick={handleShow}
         >
-          <p className="my-auto card-button-text">Edit</p>
+          Create new
         </Button>
       </div>
 
@@ -203,7 +237,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
               {/* CHANNEL NAME AND NUMBER INPUTS */}
               <div className="row">
                 <header className="modal-header-wrapper">
-                  CREATE NEW INPUT
+                  CREATE NEW OUTPUT
                 </header>
               </div>
               <div className="row">
@@ -215,23 +249,11 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                   <Form.Control
                     type="text"
                     className="text-input-wrapper"
-                    value={input.channelName}
                     onChange={(e): void => onChannelNameChange(e)}
                     maxLength={20}
                   />
                 </Form.Group>
-                <Form.Group
-                  className="mt-3 text-light"
-                  controlId="channelNumber.ControlInput"
-                >
-                  <Form.Label>Channel Number</Form.Label>
-                  <Form.Control
-                    type="number"
-                    className="text-input-wrapper"
-                    value={input.channelNumber}
-                    onChange={(e): void => onChannelNumberChange(e)}
-                  />
-                </Form.Group>
+                <ChannelNumberOptions />
               </div>
               {/* UNITS INPUTS WITH OUTPUT/CONVERSION CHECKBOXES */}
               <div className="row mt-4 justify-content-around">
@@ -245,7 +267,6 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                       aria-describedby="inputGroup-sizing-sm"
                       className="text-input-wrapper"
                       onChange={(e): void => onUnitsChange(e)}
-                      value={input.units}
                       maxLength={10}
                     ></FormControl>
                   </InputGroup>
@@ -259,7 +280,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                           label="Output?"
                           name="group1"
                           type={type}
-                          checked={input.output}
+                          checked={output.output}
                           onChange={(): void => onOutputChange()}
                           id={`inline-${type}-1`}
                         />
@@ -268,7 +289,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                           label="Conversion?"
                           name="group1"
                           type={type}
-                          checked={input.conversion}
+                          checked={output.conversion}
                           onChange={(): void => onConversionChange()}
                           id={`inline-${type}-2`}
                         />
@@ -278,7 +299,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                 </div>
               </div>
               {/* X AND Y INPUTS */}
-              {input.conversion && (
+              {output.conversion && (
                 <div className="row mt-4 justify-content-around mx-auto">
                   <div className="col-lg-5">
                     <InputGroup className="input-group-sm mb-3">
@@ -290,7 +311,6 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                         aria-describedby="inputGroup-sizing-sm"
                         className="text-input-wrapper"
                         onChange={(e): void => onXChange(e)}
-                        value={input.x}
                         maxLength={12}
                       ></FormControl>
                     </InputGroup>
@@ -305,7 +325,6 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
                         aria-describedby="inputGroup-sizing-sm"
                         className="text-input-wrapper"
                         onChange={(e): void => onYChange(e)}
-                        value={input.y}
                         maxLength={12}
                       ></FormControl>
                     </InputGroup>
@@ -315,7 +334,7 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
               {/* ADD OR SAVE MODAL BUTTONS */}
               <div className="row justify-content-end mt-4">
                 <div className="col-3">
-                  {isValidInput() ? <EditButton /> : <DangerEditButton />}
+                  {isValidOutput() ? <AddButton /> : <DangerAddButton />}
                 </div>
                 <div className="col-3">
                   <Button
@@ -336,4 +355,4 @@ const EditInputModal: React.FunctionComponent<EditInputModalProps> = ({
   );
 };
 
-export default EditInputModal;
+export default CreateOuputModal;

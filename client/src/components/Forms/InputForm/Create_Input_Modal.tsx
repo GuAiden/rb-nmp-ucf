@@ -131,7 +131,16 @@ const CreateInputModal: React.FunctionComponent<CreateInputModalProps> = ({
   };
 
   const onConversionChange = (): void => {
-    setInput({ ...input, conversion: !input.conversion });
+    if (input.conversion === true) {
+      setInput({
+        ...input,
+        conversion: !input.conversion,
+        x: undefined,
+        y: undefined,
+      });
+    } else {
+      setInput({ ...input, conversion: !input.conversion });
+    }
   };
 
   // Popover to let user know about invalid input

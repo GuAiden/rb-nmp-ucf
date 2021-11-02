@@ -31,7 +31,7 @@ const Forms: React.FunctionComponent = () => {
    * Handler to delete an input from list
    * We can use the channelNumber to delete from the list since it acts
    * as a unique key for all inputs
-   * @param inputServer
+   * @param channelNumber number of input to be deleted
    */
   const handleInputDeletion = (channelNumber: number): void => {
     setState({
@@ -39,9 +39,17 @@ const Forms: React.FunctionComponent = () => {
       inputs: state.inputs.filter(
         (input) => input.channelNumber !== channelNumber,
       ),
+      outputs: state.outputs.filter(
+        (output) => output.channelNumber !== channelNumber,
+      ),
     });
   };
 
+  /**
+   * Handler to edit input values
+   * @param userInput New Input that will replace the input at index idx
+   * @param idx Index of the input to be replaced
+   */
   const handleInputEdit = (userInput: Input, idx: number): void => {
     // Make shallow copy of inputs
     const inputsCopy = [...state.inputs];
@@ -52,15 +60,33 @@ const Forms: React.FunctionComponent = () => {
   };
 
   /**
-   * Uncomment when components have been made, pass down as prop to relevant component
+   * Handler to append input to list from create input modal
+   * @param userOutput created output
    */
-  // function handleOutputChange(userOutputs: Output[]): void {
-  //   setState({ ...state, outputs: userOutputs });
-  // }
+  const handleOutputChange = (userOutput: Output): void => {
+    setState({ ...state, outputs: state.outputs.concat(userOutput) });
+  };
 
-  function handleServerChange(inputServer: ServerInput): void {
+  const handleOutputDeletion = (channelNumber: number): void => {
+    setState({
+      ...state,
+      outputs: state.outputs.filter(
+        (output) => output.channelNumber !== channelNumber,
+      ),
+    });
+  };
+
+  const handleOutputEdit = (userOutput: Output, idx: number): void => {
+    const outputsCopy = [...state.outputs];
+    let oldOutput = { ...outputsCopy[idx] };
+    oldOutput = userOutput;
+    outputsCopy[idx] = oldOutput;
+    setState({ ...state, outputs: outputsCopy });
+  };
+
+  const handleServerChange = (inputServer: ServerInput): void => {
     setState({ ...state, server: inputServer });
-  }
+  };
 
   /**
    * Changes the form to determine what component to show
@@ -87,7 +113,16 @@ const Forms: React.FunctionComponent = () => {
           onFormChange={handleFormChange}
         />
       )}
-      {form === 'OutputForm' && <OutputForm onFormChange={handleFormChange} />}
+      {form === 'OutputForm' && (
+        <OutputForm
+          onOuputChange={handleOutputChange}
+          onOutputDelete={handleOutputDeletion}
+          onOutputEdit={handleOutputEdit}
+          outputList={state.outputs}
+          inputList={state.inputs}
+          onFormChange={handleFormChange}
+        />
+      )}
       {form === 'ServerForm' && (
         <ServerForm
           onServerChange={handleServerChange}
