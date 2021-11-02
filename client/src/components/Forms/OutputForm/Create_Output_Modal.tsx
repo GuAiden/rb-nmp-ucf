@@ -7,13 +7,16 @@ import {
   Modal,
   Popover,
   OverlayTrigger,
+  DropdownButton,
+  Dropdown,
 } from 'react-bootstrap';
-import { Output } from '../Input_Types';
+import { Input, Output } from '../Input_Types';
 import './index.css';
 
 type CreateOuputModalProps = {
   onAddOutput: (userOutput: Output) => void;
   outputList: Output[];
+  inputList: Input[];
 };
 
 const initialState = {
@@ -30,12 +33,11 @@ const initialState = {
 const CreateOuputModal: React.FunctionComponent<CreateOuputModalProps> = ({
   onAddOutput,
   outputList,
+  inputList,
 }: CreateOuputModalProps) => {
   /**
    * showState -> responsible for opening and closing modal
-   * inputState -> responsible for storing form inputs
-   * isConversionState -> responsible for handling conversion checkbox state
-   * isOutputState -> responsible for handling output checkbox state
+   * outputState -> responsible for storing form inputs
    */
   const [show, setShow] = useState(false);
   const [output, setOutput] = useState<Output>(initialState);
@@ -94,14 +96,10 @@ const CreateOuputModal: React.FunctionComponent<CreateOuputModalProps> = ({
     setOutput({ ...output, channelName: e.currentTarget.value as string });
   };
 
-  const onChannelNumberChange = (
-    e: Parameters<
-      NonNullable<React.ComponentProps<typeof FormControl>['onChange']>
-    >[0],
-  ): void => {
+  const onChannelNumberChange = (channelNum: number): void => {
     setOutput({
       ...output,
-      channelNumber: parseInt(e.currentTarget.value, 10),
+      channelNumber: channelNum,
     });
   };
 
@@ -134,7 +132,16 @@ const CreateOuputModal: React.FunctionComponent<CreateOuputModalProps> = ({
   };
 
   const onConversionChange = (): void => {
-    setOutput({ ...output, conversion: !output.conversion });
+    if (output.conversion === true) {
+      setOutput({
+        ...output,
+        conversion: !output.conversion,
+        x: undefined,
+        y: undefined,
+      });
+    } else {
+      setOutput({ ...output, conversion: !output.conversion });
+    }
   };
 
   // Popover to let user know about invalid input
@@ -189,6 +196,28 @@ const CreateOuputModal: React.FunctionComponent<CreateOuputModalProps> = ({
     </Button>
   );
 
+  const ChannelNumberOptions: React.FunctionComponent = () => (
+    <DropdownButton
+      id="dropdown-channelNumbers"
+      title={
+        Number.isNaN(output.channelNumber)
+          ? 'Channel Number'
+          : output.channelNumber
+      }
+      variant="secondary"
+      className="mt-4"
+    >
+      {inputList.map((input, idx) => (
+        <Dropdown.Item
+          as="button"
+          onClick={(): void => onChannelNumberChange(input.channelNumber)}
+        >
+          {input.channelNumber}
+        </Dropdown.Item>
+      ))}
+    </DropdownButton>
+  );
+
   return (
     <React.Fragment>
       <div className="float-left">
@@ -208,7 +237,7 @@ const CreateOuputModal: React.FunctionComponent<CreateOuputModalProps> = ({
               {/* CHANNEL NAME AND NUMBER INPUTS */}
               <div className="row">
                 <header className="modal-header-wrapper">
-                  CREATE NEW INPUT
+                  CREATE NEW OUTPUT
                 </header>
               </div>
               <div className="row">
@@ -224,17 +253,7 @@ const CreateOuputModal: React.FunctionComponent<CreateOuputModalProps> = ({
                     maxLength={20}
                   />
                 </Form.Group>
-                <Form.Group
-                  className="mt-3 text-light"
-                  controlId="channelNumber.ControlInput"
-                >
-                  <Form.Label>Channel Number</Form.Label>
-                  <Form.Control
-                    type="number"
-                    className="text-input-wrapper"
-                    onChange={(e): void => onChannelNumberChange(e)}
-                  />
-                </Form.Group>
+                <ChannelNumberOptions />
               </div>
               {/* UNITS INPUTS WITH OUTPUT/CONVERSION CHECKBOXES */}
               <div className="row mt-4 justify-content-around">

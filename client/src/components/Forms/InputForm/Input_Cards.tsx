@@ -6,7 +6,7 @@ import './Input_Cards.css';
 
 type InputCardsProps = {
   inputList: Input[];
-  onInputDelete: (idx: number) => void;
+  onInputDelete: (channelNumber: number) => void;
   onInputEdit: (userInput: Input, idx: number) => void;
 };
 

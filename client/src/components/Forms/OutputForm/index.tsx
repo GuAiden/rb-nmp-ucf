@@ -3,17 +3,24 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import gridviewicon from '../../../assets/gridviewicon.png';
 import stackedviewicon from '../../../assets/stackedviewicon.png';
 import CreateOutputModal from './Create_Output_Modal';
-import { Output } from '../Input_Types';
+import StackView from './Stack_View';
+import { Input, Output } from '../Input_Types';
 
 type OutputFormProps = {
   onOuputChange: (userOutput: Output) => void;
+  onOutputDelete: (channelNum: number) => void;
+  onOutputEdit: (userOutput: Output, idx: number) => void;
   outputList: Output[];
+  inputList: Input[];
   onFormChange: (form: string) => void;
 };
 
 const OutputForm: React.FunctionComponent<OutputFormProps> = ({
   onOuputChange,
+  onOutputDelete,
+  onOutputEdit,
   outputList,
+  inputList,
   onFormChange,
 }: OutputFormProps) => (
   <React.Fragment>
@@ -24,6 +31,7 @@ const OutputForm: React.FunctionComponent<OutputFormProps> = ({
             <CreateOutputModal
               onAddOutput={onOuputChange}
               outputList={outputList}
+              inputList={inputList}
             />
           </Col>
           <Col md={3} className="my-auto">
@@ -44,6 +52,12 @@ const OutputForm: React.FunctionComponent<OutputFormProps> = ({
           </Col>
         </Row>
       </Container>
+      <StackView
+        outputList={outputList}
+        inputList={inputList}
+        onOutputDelete={onOutputDelete}
+        onOutputEdit={onOutputEdit}
+      />
     </Container>
     <Container>
       <Row className="justify-content-between gx-0">

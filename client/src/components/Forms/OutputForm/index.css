@@ -7,3 +7,21 @@
     border: 2px;
     border-color: white;
 }
+
+.stackview-header {
+    color: rgb(0, 68, 255);
+}
+
+.button-clear {
+    background-color: transparent;
+    border: 2px;
+    border-color: white;
+}
+
+#grey {
+    background-color: rgb(110, 110, 110);
+}
+
+#dark-grey {
+    background-color: rgb(53, 53, 53);
+}
