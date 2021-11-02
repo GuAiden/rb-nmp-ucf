@@ -96,7 +96,7 @@ const Forms: React.FunctionComponent = () => {
         />
       )}
       {form === 'SummaryForm' && (
-        <SummaryForm onFormChange={handleFormChange} />
+        <SummaryForm onFormChange={handleFormChange} summary={state} />
       )}
     </React.Fragment>
   );
