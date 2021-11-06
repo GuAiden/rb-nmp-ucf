@@ -4,6 +4,10 @@
     color: white; 
 }
 
+.text-input-wrapper::selection, .text-input-wrapper:focus {
+    background-color: rgb(71, 71, 71);
+}
+
 .form-label-text {
     color: white;
     display: flex;
